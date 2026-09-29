@@ -55,11 +55,30 @@ def build_siamese_change_detector(input_shape=(256, 256, 4)) -> tf.keras.Model:
 class ChangeDetectionModel:
     """
     Temporal Change Detection module for CloudClear AI.
+    Supports trained weights via default
+    `models/saved_models/change_detector.weights.h5` (audit Sec.8/9/13).
     """
 
-    def __init__(self, patch_size: int = 256):
+    def __init__(self, patch_size: int = 256, weights_path: Optional[str] = None):
+        import os
         self.patch_size = patch_size
         self.model = build_siamese_change_detector(input_shape=(patch_size, patch_size, 4))
+        self.weights_path: Optional[str] = None
+        candidates = []
+        if weights_path:
+            candidates.append(weights_path)
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        candidates += [
+            os.path.join(base_dir, "models", "saved_models", "change_detector.weights.h5"),
+        ]
+        for p in candidates:
+            if p and os.path.exists(p):
+                try:
+                    self.model.load_weights(p)
+                    self.weights_path = p
+                    break
+                except Exception:
+                    continue
 
     def predict(
         self,

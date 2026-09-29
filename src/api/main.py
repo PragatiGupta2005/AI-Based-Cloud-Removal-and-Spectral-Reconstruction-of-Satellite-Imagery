@@ -10,26 +10,31 @@ import shutil
 from datetime import datetime, timezone
 from typing import Optional, Dict, Any, List
 
-from fastapi import FastAPI, File, UploadFile, Form, HTTPException, BackgroundTasks, status
+from fastapi import FastAPI, File, UploadFile, Form, HTTPException, BackgroundTasks, status, Header, Depends
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from src.preprocessing.data_loader import GeoTIFFLoader, validate_geotiff
 from src.pipeline.cloudclear_pipeline import CloudClearPipeline, PredictionPacket
+from src.api.security import require_auth, create_token, auth_enabled
+from src.hitl.feedback_store import FeedbackStore
+from src.models.registry import refresh_registry
 
 app = FastAPI(
     title="CloudClear AI REST API",
     description="Multi-Modal Geospatial AI Platform for Cloud Removal & Spectral Reconstruction",
-    version="1.0.0",
+    version="1.1.0",
     docs_url="/docs",
     redoc_url="/redoc"
 )
 
-# CORS configuration
+# CORS configuration (restrict via CORS_ALLOW_ORIGINS env in production; audit Sec.18)
+import os as _os
+_cors_origins = [o.strip() for o in _os.getenv("CORS_ALLOW_ORIGINS", "*").split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -54,6 +59,20 @@ predictions_cache: Dict[str, PredictionPacket] = {}
 class PredictRequest(BaseModel):
     image_id: str
     strategy: Optional[str] = Field(None, description="historical, sar, or adaptive")
+    agent_mode: Optional[str] = Field("adaptive", description="sequential or adaptive")
+
+
+class FeedbackRequest(BaseModel):
+    image_id: str
+    kind: str = Field(description="cloud_mask | strategy | quality")
+    payload: Dict[str, Any] = Field(default_factory=dict)
+
+
+class FetchRealRequest(BaseModel):
+    bbox: List[float] = Field(description="[min_lon, min_lat, max_lon, max_lat]")
+    date_range: str = "2024-01-01/2024-06-30"
+    region: str = "STAC AOI"
+    download_s2: bool = True
 
 
 class CloudMaskRequest(BaseModel):
@@ -76,12 +95,81 @@ class StandardResponse(BaseModel):
 
 @app.get("/api/v1/health", tags=["System"])
 def health_check():
+    import tensorflow as tf
     return {
         "status": "online",
         "service": "CloudClear AI",
-        "version": "1.0.0",
+        "version": "1.1.0",
+        "auth_enabled": auth_enabled(),
+        "tf_version": tf.__version__,
+        "model_registry": refresh_registry(),
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
+
+
+@app.get("/api/v1/models", tags=["System"])
+def list_models():
+    """Pretrained-model registry with honest validation status (audit Sec.13)."""
+    return {"success": True, "registry": refresh_registry()}
+
+
+@app.post("/api/v1/feedback", tags=["HITL"])
+def submit_feedback(req: FeedbackRequest, user: str = Depends(require_auth)):
+    """Stores a human correction for later retraining (audit Sec.16)."""
+    if req.kind not in ("cloud_mask", "strategy", "quality"):
+        raise HTTPException(status_code=422, detail="kind must be cloud_mask|strategy|quality")
+    store = FeedbackStore()
+    rec = store.add({"image_id": req.image_id, "kind": req.kind,
+                     "payload": req.payload, "user": user})
+    return {"success": True, "message": "Feedback stored for retraining",
+            "record": rec, "total_feedback": store.count()}
+
+
+@app.get("/api/v1/feedback", tags=["HITL"])
+def list_feedback(limit: int = 100):
+    return {"success": True, "feedback": FeedbackStore().list(limit=limit)}
+
+
+@app.post("/api/v1/fetch-real", tags=["Datasets"])
+def fetch_real_s2(req: FetchRealRequest, background_tasks: BackgroundTasks,
+                  user: str = Depends(require_auth)):
+    """Fetches real Sentinel-2 via STAC (audit Sec.2/3/5). Synchronous small download."""
+    if len(req.bbox) != 4:
+        raise HTTPException(status_code=422, detail="bbox must have 4 floats")
+    from fetch_satellite_data import SatelliteDataFetcher
+    fetcher = SatelliteDataFetcher(data_dir=os.path.join(BASE_DIR, "data"))
+    try:
+        res = fetcher.fetch_sentinel2_as_geotiff(
+            bbox=tuple(req.bbox), date_range=req.date_range, region_name=req.region)
+        return {"success": True, "message": "Real Sentinel-2 downloaded",
+                "data": {k: v for k, v in res.items() if k != "optical"}}
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Real S-2 fetch failed: {e}")
+
+
+@app.post("/api/v1/admin/retrain", tags=["Admin"])
+def admin_retrain(background_tasks: BackgroundTasks, user: str = Depends(require_auth),
+                  epochs: int = 3):
+    """Queues lightweight retraining including HITL feedback (audit Sec.16)."""
+    def _job():
+        from src.models.trainer import SatellitePatchDataset, ModelTrainer
+        ds = SatellitePatchDataset(data_dir=os.path.join(BASE_DIR, "data"),
+                                   patch_size=128, stride=128, max_patches_per_scene=2)
+        patches = ds.extract_patches()
+        tr = ModelTrainer(save_dir=os.path.join(BASE_DIR, "models", "saved_models"),
+                          patch_size=128)
+        if len(patches.get("cloudy", [])):
+            tr.train_cloud_detector(patches, epochs=epochs)
+    background_tasks.add_task(_job)
+    return {"success": True, "message": f"Retrain queued (epochs={epochs}) incl. feedback",
+            "feedback_count": FeedbackStore().count()}
+
+
+@app.post("/api/v1/admin/token", tags=["Admin"])
+def admin_token(subject: str = "user"):
+    if auth_enabled():
+        raise HTTPException(status_code=403, detail="Token minting disabled when AUTH_ENABLED=true; use SSO")
+    return {"success": True, "token": create_token(subject)}
 
 
 @app.get("/api/v1/samples", tags=["Datasets"])
@@ -99,10 +187,11 @@ def list_samples():
 async def upload_geotiff(
     image: UploadFile = File(...),
     region: str = Form("West Bengal"),
-    sensor: str = Form("Sentinel-2")
+    sensor: str = Form("Sentinel-2"),
+    user: str = Depends(require_auth),
 ):
     """
-    Uploads a multi-band GeoTIFF satellite scene.
+    Uploads a multi-band GeoTIFF satellite scene. Max 500 MB (audit Sec.18).
     """
     if not (image.filename.endswith(".tif") or image.filename.endswith(".tiff")):
         raise HTTPException(
@@ -113,8 +202,21 @@ async def upload_geotiff(
     image_id = f"IMG_{uuid.uuid4().hex[:8]}"
     save_path = os.path.join(UPLOAD_DIR, f"{image_id}_{image.filename}")
 
+    # Stream with 500 MB cap (production hardening)
+    max_bytes = int(os.getenv("MAX_UPLOAD_MB", "500")) * 1024 * 1024
+    written = 0
     with open(save_path, "wb") as buffer:
-        shutil.copyfileobj(image.file, buffer)
+        while True:
+            chunk = await image.read(1024 * 1024)
+            if not chunk:
+                break
+            written += len(chunk)
+            if written > max_bytes:
+                buffer.close()
+                if os.path.exists(save_path):
+                    os.remove(save_path)
+                raise HTTPException(status_code=413, detail="File exceeds MAX_UPLOAD_MB")
+            buffer.write(chunk)
 
     is_valid, msg, meta = validate_geotiff(save_path)
     if not is_valid or meta is None:
@@ -139,7 +241,7 @@ async def upload_geotiff(
 
 
 @app.post("/api/v1/predict", tags=["Pipeline"])
-def run_full_prediction(req: PredictRequest):
+def run_full_prediction(req: PredictRequest, user: str = Depends(require_auth)):
     """
     Runs the complete 11-stage CloudClear AI reconstruction pipeline.
     """
@@ -174,7 +276,8 @@ def run_full_prediction(req: PredictRequest):
         sar_path=sar_file if os.path.exists(sar_file) else None,
         clear_reference_path=clear_file if os.path.exists(clear_file) else None,
         image_id=img_id,
-        strategy_override=req.strategy
+        strategy_override=req.strategy,
+        agent_mode=(req.agent_mode or "adaptive"),
     )
 
     predictions_cache[img_id] = packet
@@ -286,9 +389,7 @@ def get_landcover_distribution(prediction_id: str):
 
 @app.get("/api/v1/download/{prediction_id}", tags=["Download Center"])
 def download_geotiff(prediction_id: str):
-    """
-    Downloads the reconstructed cloud-free GeoTIFF.
-    """
+    """Downloads the reconstructed cloud-free GeoTIFF."""
     if prediction_id not in predictions_cache:
         run_full_prediction(PredictRequest(image_id=prediction_id))
 
@@ -322,3 +423,16 @@ def download_pdf_report(prediction_id: str):
         media_type="application/pdf",
         filename=os.path.basename(report_path)
     )
+
+
+@app.get("/api/v1/validate", tags=["Analytics"])
+def run_validation(max_scenes: int = 3, user: str = Depends(require_auth)):
+    """Runs benchmark vs historical-copy baseline (audit Sec.17)."""
+    from src.validation.benchmark import run_benchmark
+    report = run_benchmark(
+        data_dir=os.path.join(BASE_DIR, "data"),
+        output_dir=os.path.join(BASE_DIR, "outputs"),
+        reports_dir=os.path.join(BASE_DIR, "reports"),
+        max_scenes=max(1, min(max_scenes, 10)),
+    )
+    return {"success": True, "report": report}

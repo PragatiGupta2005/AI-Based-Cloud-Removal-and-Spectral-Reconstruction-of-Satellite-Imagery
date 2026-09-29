@@ -1,0 +1,53 @@
+{
+  "note": "Audit Sec.13: architecture != validated pretrained model. weights_available is computed from disk; validation fields are honest about synthetic supervision.",
+  "models": [
+    {
+      "name": "cloud_detector",
+      "architecture": "Attention U-Net (TF/Keras), 4-band -> cloud/shadow prob",
+      "weights": "models/saved_models/cloud_detector.weights.h5",
+      "training": "src/models/trainer.py:train_cloud_detector (synthetic diff masks + NIR shadow rule)",
+      "validation": "not established on real clouds (needs 38-Cloud/SPARCS)",
+      "inference": "hybrid physics-heuristic + U-Net; pure-AI mode via use_learned_only=True"
+    },
+    {
+      "name": "change_detector",
+      "architecture": "Siamese CNN + SAR branch (TF/Keras)",
+      "weights": "models/saved_models/change_detector.weights.h5",
+      "training": "src/models/trainer.py:train_change_detector (|clear-historical| pseudo change)",
+      "validation": "not established on OSCD/real bi-temporal",
+      "inference": "hybrid spectral-diff + Siamese NN + SAR"
+    },
+    {
+      "name": "mrr_reconstructor",
+      "architecture": "Multi-scale 3-head U-Net + CrossAttention (TF/Keras)",
+      "weights": "models/saved_models/mrr_reconstructor.weights.h5",
+      "training": "src/models/trainer.py:train_reconstruction_model (L1+SSIM+Sobel+SAM)",
+      "validation": "synthetic val PSNR/SSIM in training_metadata.json; no real benchmark yet",
+      "inference": "learned (if weights) blended with physics infill"
+    },
+    {
+      "name": "deep_qan",
+      "architecture": "DeepQAN CNN regressor (PyTorch), 8ch -> quality [0,1]",
+      "weights": "models/saved_models/deep_qan.pt",
+      "training": "src/models/trainer.py:train_deep_qan (distilled metric-composite)",
+      "validation": "correlation vs metric composite on synthetic holdout only",
+      "inference": "optional; QualityAssessmentNetwork falls back to metric Q when absent"
+    },
+    {
+      "name": "landcover_unet",
+      "architecture": "LandCoverSegmentationUNet (PyTorch), 4-band -> 5 classes",
+      "weights": "models/saved_models/landcover_unet.pt",
+      "training": "src/models/trainer.py:train_landcover_unet (rule pseudo-labels)",
+      "validation": "agreement vs rule baseline only; needs real LULC labels",
+      "inference": "learned if weights present else rule-based NDVI/NDWI"
+    },
+    {
+      "name": "sub_cloud",
+      "architecture": "rule-based spectral+SAR decoder (no learned weights)",
+      "weights": "",
+      "training": "none - deterministic indices with per-pixel confidence from QAN/confidence maps",
+      "validation": "visual/consistency checks only",
+      "inference": "rule-based; report includes method flag"
+    }
+  ]
+}

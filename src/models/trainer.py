@@ -324,3 +324,243 @@ class ModelTrainer:
             json.dump(summary, f, indent=2)
 
         return summary
+
+    # --- Audit Sec.6/7: Attention U-Net cloud/shadow training ---
+    def train_cloud_detector(
+        self,
+        dataset_patches: Dict[str, np.ndarray],
+        epochs: int = 10,
+        batch_size: int = 8,
+        learning_rate: float = 1e-3,
+    ) -> Dict[str, Any]:
+        """Trains Attention U-Net on (cloudy -> cloud/shadow mask).
+
+        Supervision: synthetic cloud masks from SatellitePatchDataset
+        (diff cloudy vs clear) + shadow approximated as dark low-NIR pixels.
+        Saves `cloud_detector.weights.h5` + `training_metadata_cloud.json`.
+        """
+        cloudy = dataset_patches["cloudy"]
+        clear = dataset_patches["clear"]
+        if len(cloudy) == 0:
+            raise ValueError("No training patches available.")
+        import tensorflow as tf
+        from tensorflow.keras import optimizers as _opt
+        # Build targets: ch0=cloud (mask), ch1=shadow (dark & low NIR & not cloud)
+        masks = dataset_patches.get("mask", None)
+        targets = []
+        for i in range(len(cloudy)):
+            c = cloudy[i]
+            if masks is not None and len(masks) == len(cloudy):
+                m = masks[i]
+                cm = m[:, :, 0] if m.ndim == 3 else m.squeeze(-1)
+            else:
+                diff = float(np.mean(np.abs(c - clear[i])))
+                cm = (np.mean(np.abs(c - clear[i]), axis=-1) > 0.12).astype(np.float32)
+            b8 = c[:, :, 3]
+            bright = c[:, :, :3].mean(axis=-1)
+            shadow = ((bright < 0.25) & (b8 < 0.22) & (cm < 0.5)).astype(np.float32)
+            targets.append(np.stack([cm, shadow], axis=-1))
+        y = np.array(targets, dtype=np.float32)
+        n = len(cloudy)
+        idx = np.arange(n)
+        np.random.seed(42)
+        np.random.shuffle(idx)
+        vs = max(2, int(n * 0.15))
+        tr, va = idx[:-vs], idx[-vs:]
+        model = build_attention_unet(input_shape=(self.patch_size, self.patch_size, 4))
+        model.compile(
+            optimizer=_opt.Adam(learning_rate=learning_rate),
+            loss="binary_crossentropy",
+            metrics=["accuracy"],
+        )
+        hist = model.fit(
+            cloudy[tr], y[tr], validation_data=(cloudy[va], y[va]),
+            epochs=epochs, batch_size=batch_size, verbose=1,
+        )
+        wpath = os.path.join(self.save_dir, "cloud_detector.weights.h5")
+        model.save_weights(wpath)
+        summary = {
+            "trained_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "epochs": epochs,
+            "samples_count": n,
+            "final_val_loss": float(hist.history["val_loss"][-1]),
+            "weights_path": wpath,
+            "data_source": "synthetic (diff cloudy-vs-clear + NIR shadow rule); "
+                           "replace with real annotated clouds (e.g. 38-Cloud, SPARCS) for production",
+        }
+        with open(os.path.join(self.save_dir, "training_metadata_cloud.json"), "w") as f:
+            json.dump(summary, f, indent=2)
+        return summary
+
+    # --- Audit Sec.8/9: Siamese change-detector training ---
+    def train_change_detector(
+        self,
+        dataset_patches: Dict[str, np.ndarray],
+        epochs: int = 10,
+        batch_size: int = 8,
+        learning_rate: float = 1e-3,
+    ) -> Dict[str, Any]:
+        """Trains Siamese change detector.
+
+        Supervision: |clear - historical| magnitude as pseudo change-probability
+        (synthetic seasonal shifts). Saves `change_detector.weights.h5`.
+        """
+        from .change_detector import build_siamese_change_detector
+        cloudy = dataset_patches["cloudy"]
+        hist = dataset_patches["historical"]
+        sar = dataset_patches["sar"]
+        clear = dataset_patches["clear"]
+        n = len(cloudy)
+        if n == 0:
+            raise ValueError("No training patches available.")
+        # pseudo change target: normalized |clear-hist| -> 64x64 (model output res)
+        import tensorflow as tf
+        targets = []
+        for i in range(n):
+            d = np.mean(np.abs(clear[i] - hist[i]), axis=-1, keepdims=True)
+            t = np.clip(d * 4.0, 0.0, 1.0).astype(np.float32)
+            # model outputs 128x128 for 256 input (one pooling); resize target
+            t_small = tf.image.resize(t, (128, 128)).numpy()
+            targets.append(t_small)
+        y = np.array(targets, dtype=np.float32)
+        idx = np.arange(n)
+        np.random.seed(42)
+        np.random.shuffle(idx)
+        vs = max(2, int(n * 0.15))
+        tr, va = idx[:-vs], idx[-vs:]
+        from tensorflow.keras import optimizers as _opt
+        model = build_siamese_change_detector(input_shape=(self.patch_size, self.patch_size, 4))
+        model.compile(optimizer=_opt.Adam(learning_rate=learning_rate), loss="binary_crossentropy")
+        hist_cb = model.fit(
+            [cloudy[tr], hist[tr], sar[tr]], y[tr],
+            validation_data=([cloudy[va], hist[va], sar[va]], y[va]),
+            epochs=epochs, batch_size=batch_size, verbose=1,
+        )
+        wpath = os.path.join(self.save_dir, "change_detector.weights.h5")
+        model.save_weights(wpath)
+        summary = {
+            "trained_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "epochs": epochs,
+            "samples_count": n,
+            "final_val_loss": float(hist_cb.history["val_loss"][-1]),
+            "weights_path": wpath,
+            "data_source": "synthetic (|clear-historical| pseudo change); "
+                           "replace with OSCD/real bi-temporal labels for production",
+        }
+        with open(os.path.join(self.save_dir, "training_metadata_change.json"), "w") as f:
+            json.dump(summary, f, indent=2)
+        return summary
+
+    # --- Audit Sec.10: learned DeepQAN training (torch) ---
+    def train_deep_qan(
+        self,
+        dataset_patches: Dict[str, np.ndarray],
+        epochs: int = 8,
+        batch_size: int = 16,
+        learning_rate: float = 1e-3,
+    ) -> Dict[str, Any]:
+        """Trains DeepQAN regressor: (candidate, reference) -> composite quality.
+
+        Labels are metric-based composite scores (distillation), so the net
+        learns to predict quality without a reference at inference-adjacent use;
+        training still requires references. Saves `deep_qan.pt`.
+        """
+        import torch
+        import torch.nn as nn
+        from .deep_qan import DeepQAN
+        from ..qan.quality_network import QualityAssessmentNetwork as _Q
+        cloudy = dataset_patches["cloudy"]
+        clear = dataset_patches["clear"]
+        n = len(cloudy)
+        if n == 0:
+            raise ValueError("No training patches available.")
+        # Build pairs: (cloudy|clean) with label=metric composite; (clear|clear)=1.0
+        xs, ys = [], []
+        for i in range(n):
+            m = _Q.calculate_metrics(cloudy[i], clear[i])
+            xs.append(np.concatenate([cloudy[i], clear[i]], axis=-1))
+            ys.append(m.composite_score)
+            xs.append(np.concatenate([clear[i], clear[i]], axis=-1))
+            ys.append(1.0)
+        X = np.array(xs, dtype=np.float32)
+        Y = np.array(ys, dtype=np.float32)
+        ds = torch.utils.data.TensorDataset(torch.from_numpy(X).permute(0, 3, 1, 2), torch.from_numpy(Y))
+        loader = torch.utils.data.DataLoader(ds, batch_size=batch_size, shuffle=True)
+        model = DeepQAN(in_channels=8)
+        opt = torch.optim.Adam(model.parameters(), lr=learning_rate)
+        loss_fn = nn.MSELoss()
+        model.train()
+        for _ in range(epochs):
+            for xb, yb in loader:
+                opt.zero_grad()
+                pred = model(xb).squeeze(-1)
+                loss = loss_fn(pred, yb)
+                loss.backward()
+                opt.step()
+        wpath = os.path.join(self.save_dir, "deep_qan.pt")
+        torch.save(model.state_dict(), wpath)
+        summary = {
+            "trained_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "epochs": epochs,
+            "samples_count": int(len(Y)),
+            "weights_path": wpath,
+            "method": "distilled metric-composite regression (torch)",
+        }
+        with open(os.path.join(self.save_dir, "training_metadata_qan.json"), "w") as f:
+            json.dump(summary, f, indent=2)
+        return summary
+
+    # --- Audit Sec.11: land-cover UNet training on pseudo-labels ---
+    def train_landcover_unet(
+        self,
+        dataset_patches: Dict[str, np.ndarray],
+        epochs: int = 6,
+        batch_size: int = 8,
+        learning_rate: float = 1e-3,
+    ) -> Dict[str, Any]:
+        """Trains LandCoverSegmentationUNet with rule-based pseudo-labels.
+
+        This gives a real learned weights file (`landcover_unet.pt`) while being
+        honest that supervision is synthetic; swap in real LULC labels for prod.
+        """
+        import torch
+        import torch.nn as nn
+        from .segmentation import LandCoverSegmentationUNet
+        from ..analysis.landcover import LandCoverClassifier as _LC
+        clear = dataset_patches["clear"]
+        n = len(clear)
+        if n == 0:
+            raise ValueError("No training patches available.")
+        pseudo = []
+        rule = _LC()
+        for i in range(n):
+            rep = rule.classify(np.clip(clear[i], 0, 1))
+            pseudo.append(rep.class_map)
+        X = torch.from_numpy(np.array(clear, dtype=np.float32)).permute(0, 3, 1, 2)
+        Y = torch.from_numpy(np.array(pseudo, dtype=np.int64))
+        loader = torch.utils.data.DataLoader(
+            torch.utils.data.TensorDataset(X, Y), batch_size=batch_size, shuffle=True
+        )
+        model = LandCoverSegmentationUNet(n_channels=4, n_classes=5)
+        opt = torch.optim.Adam(model.parameters(), lr=learning_rate)
+        ce = nn.CrossEntropyLoss()
+        model.train()
+        for _ in range(epochs):
+            for xb, yb in loader:
+                opt.zero_grad()
+                logits = model(xb)
+                loss = ce(logits, yb)
+                loss.backward()
+                opt.step()
+        wpath = os.path.join(self.save_dir, "landcover_unet.pt")
+        torch.save(model.state_dict(), wpath)
+        summary = {
+            "trained_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "epochs": epochs,
+            "samples_count": n,
+            "weights_path": wpath,
+            "method": "supervised on rule-based pseudo-labels (replace with real LULC for production)",
+        }
+        with open(os.path.join(self.save_dir, "training_metadata_landcover.json"), "w") as f:
+            json.dump(summary, f, indent=2)
+        return summary

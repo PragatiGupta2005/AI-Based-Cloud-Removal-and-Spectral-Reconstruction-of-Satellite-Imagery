@@ -42,8 +42,14 @@ class LandCoverClassifier:
     ], dtype=np.uint8)
 
     def __init__(self, model_path: Optional[str] = None):
+        if model_path is None:
+            base = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            default = os.path.join(base, "models", "saved_models", "landcover_unet.pt")
+            if os.path.exists(default):
+                model_path = default
         self.model_path = model_path
         self.model = None
+        self.method = "rule-based NDVI/NDWI"
         
         if self.model_path and os.path.exists(self.model_path):
             try:
@@ -52,6 +58,7 @@ class LandCoverClassifier:
                 self.model = LandCoverSegmentationUNet(n_channels=4, n_classes=5)
                 self.model.load_state_dict(torch.load(self.model_path, map_location='cpu'))
                 self.model.eval()
+                self.method = "learned-unet (trained on pseudo-labels; needs real LULC for production)"
             except ImportError:
                 pass
             except Exception as e:

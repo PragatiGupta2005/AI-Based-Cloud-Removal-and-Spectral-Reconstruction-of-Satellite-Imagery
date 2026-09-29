@@ -34,6 +34,12 @@ def parse_args():
     parser.add_argument("--sam_weight", type=float, default=0.25, help="Spectral Angle Mapper loss weight")
     parser.add_argument("--data_dir", type=str, default="data", help="Directory containing GeoTIFF datasets")
     parser.add_argument("--save_dir", type=str, default=os.path.join("models", "saved_models"), help="Directory to save weights")
+    parser.add_argument("--train-cloud", action="store_true", help="Also train Attention U-Net cloud detector (audit Sec.6/7)")
+    parser.add_argument("--train-change", action="store_true", help="Also train Siamese change detector (audit Sec.8/9)")
+    parser.add_argument("--train-qan", action="store_true", help="Also train DeepQAN regressor (audit Sec.10)")
+    parser.add_argument("--train-landcover", action="store_true", help="Also train land-cover UNet (audit Sec.11)")
+    parser.add_argument("--train-all", action="store_true", help="Train MRR + cloud + change + QAN + landcover")
+    parser.add_argument("--cloud-epochs", type=int, default=5, help="Epochs for cloud/change/QAN/landcover heads")
     return parser.parse_args()
 
 
@@ -90,6 +96,29 @@ def main():
     print(f"• Final Validation PSNR: {results['final_psnr']:.2f} dB")
     print(f"• Final Validation SSIM: {results['final_ssim']:.4f}")
     print(f"• Model Weights Saved: {results['weights_path']}")
+
+    if args.train_all or args.train_cloud:
+        print("\n🧠 Auxiliary: training Attention U-Net cloud detector...")
+        print(trainer.train_cloud_detector(patches, epochs=args.cloud_epochs,
+                                           batch_size=args.batch_size,
+                                           learning_rate=args.learning_rate))
+    if args.train_all or args.train_change:
+        print("\n🧠 Auxiliary: training Siamese change detector...")
+        print(trainer.train_change_detector(patches, epochs=args.cloud_epochs,
+                                            batch_size=args.batch_size,
+                                            learning_rate=args.learning_rate))
+    if args.train_all or args.train_qan:
+        try:
+            print("\n🧠 Auxiliary: training DeepQAN...")
+            print(trainer.train_deep_qan(patches, epochs=args.cloud_epochs))
+        except Exception as e:
+            print(f"DeepQAN training skipped: {e}")
+    if args.train_all or args.train_landcover:
+        try:
+            print("\n🧠 Auxiliary: training land-cover UNet...")
+            print(trainer.train_landcover_unet(patches, epochs=args.cloud_epochs))
+        except Exception as e:
+            print(f"Landcover training skipped: {e}")
     print("=" * 70 + "\n")
 
 

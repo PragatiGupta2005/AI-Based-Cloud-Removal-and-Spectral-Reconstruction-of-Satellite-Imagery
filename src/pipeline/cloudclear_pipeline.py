@@ -138,11 +138,15 @@ class CloudClearPipeline:
         clear_reference_path: Optional[str] = None,
         image_id: Optional[str] = None,
         strategy_override: Optional[str] = None,
-        progress_callback: Optional[Callable[[float, str], None]] = None
+        progress_callback: Optional[Callable[[float, str], None]] = None,
+        agent_mode: str = "adaptive",
     ) -> PredictionPacket:
+        """Executes all 11 stages via the multi-agent orchestrator.
+
+        agent_mode="sequential" reproduces the legacy fixed order;
+        "adaptive" enables autonomous planner routing (audit Sec.14/15).
         """
-        Executes all 11 stages of the pipeline.
-        """
+        import os as _os
         start_time = time.time()
         if image_id is None:
             image_id = os.path.splitext(os.path.basename(cloudy_path))[0]
@@ -161,172 +165,85 @@ class CloudClearPipeline:
                 progress_callback(pct, msg)
             logger.info(f"[{pct:.0f}%] {msg}")
 
-        # --- Stage 1: Data Retrieval & Validation ---
-        report_step(10.0, "Stage 1: Loading & validating GeoTIFF satellite imagery...")
-        cloudy_data, meta = self.loader.load_raster(cloudy_path)
-        packet.metadata = meta
-        packet.cloudy_raw = cloudy_data
-
-        H, W = cloudy_data.shape[:2]
-
-        if historical_path and os.path.exists(historical_path):
-            hist_data, _ = self.loader.load_raster(historical_path)
-        else:
-            hist_data = cloudy_data.copy()
-        packet.hist_raw = hist_data
-
-        if sar_path and os.path.exists(sar_path):
-            sar_data, _ = self.loader.load_raster(sar_path)
-        else:
-            # Synthetic default SAR channels if not provided
-            sar_data = np.zeros((H, W, 2), dtype=np.float32)
-        packet.sar_raw = sar_data
-
-        if clear_reference_path and os.path.exists(clear_reference_path):
-            ref_data, _ = self.loader.load_raster(clear_reference_path)
-        else:
-            ref_data = hist_data.copy()
-        packet.ref_raw = ref_data
-
-        # --- Stage 2: Preprocessing & Radiometric Normalization ---
-        report_step(20.0, "Stage 2: Radiometric normalization & spatial alignment...")
-        cloudy_norm, _ = self.preprocessor.normalize_radiometric(cloudy_data)
-        hist_norm, _ = self.preprocessor.normalize_radiometric(hist_data)
-        sar_norm, _ = self.preprocessor.normalize_radiometric(sar_data)
-        ref_norm, _ = self.preprocessor.normalize_radiometric(ref_data)
-
-        # --- Stage 3: Cloud & Shadow Detection ---
-        report_step(30.0, "Stage 3: Attention U-Net cloud & shadow segmentation...")
-        cloud_res = self.cloud_model.predict(cloudy_norm)
-        packet.cloud_detection = cloud_res
-
-        # --- Stage 4: Change Detection ---
-        report_step(40.0, "Stage 4: Temporal change detection & SAR coherence mapping...")
-        change_res = self.change_model.predict(
-            curr_optical=cloudy_norm,
-            hist_optical=hist_norm,
-            sar_image=sar_norm,
-            cloud_mask=cloud_res["cloud_mask"]
+        from ..agents import (
+            DataRetrievalAgent, PreprocessingAgent, CloudDetectionAgent,
+            ChangeDetectionAgent, DecisionAgent, FusionReconstructionAgent,
+            QualityAgent, ConfidenceAgent, AnalyticsAgent, DeliveryAgent,
+            AgentOrchestrator,
         )
-        packet.change_detection = change_res
-
-        # --- Stage 5: Adaptive Decision Engine ---
-        report_step(50.0, "Stage 5: Adaptive Decision Engine strategy routing...")
-        decision = self.decision_engine.evaluate_strategy(
-            cloud_pct=cloud_res["cloud_percentage"],
-            change_score=change_res["change_score"],
-            changed_area_pct=change_res["changed_area"],
-            has_sar=(sar_path is not None and os.path.exists(sar_path)),
-            has_historical=(historical_path is not None and os.path.exists(historical_path))
-        )
-        if strategy_override in ["historical", "sar", "adaptive"]:
-            decision["strategy"] = strategy_override
-            cand_map = {"historical": "C1", "sar": "C2", "adaptive": "C3"}
-            decision["recommended_candidate"] = cand_map.get(strategy_override, "C3")
-        packet.decision = decision
-
-        # --- Stage 6 & 7: Cross-Attention Fusion & MRR Reconstruction ---
-        report_step(65.0, "Stage 6-7: Multi-Hypothesis Reconstruction (MRR Candidates C1, C2, C3)...")
-        # Total occlusion mask includes both clouds and ground shadows
-        total_occlusion_mask = ((cloud_res["cloud_mask"] > 0) | (cloud_res.get("shadow_mask", 0) > 0)).astype(np.uint8)
-
-        candidates = self.mrr_model.reconstruct_all(
-            cloudy_optical=cloudy_norm,
-            hist_optical=hist_norm,
-            sar_image=sar_norm,
-            cloud_mask=total_occlusion_mask,
-            cloud_prob=cloud_res["cloud_probability"],
-            change_prob=change_res["change_probability"]
-        )
-        packet.candidates = candidates
-
-        # --- Stage 8: Quality Assessment Network (QAN) ---
-        report_step(75.0, "Stage 8: QAN evaluation (SSIM, PSNR, SAM, ERGAS)...")
-        best_cand, all_metrics = self.qan.rank_candidates(
-            candidates=candidates,
-            reference=ref_norm,
-            cloud_mask=total_occlusion_mask
-        )
-        # Select best candidate from QAN ranking (or strategy override)
-        selected_cand = strategy_override if strategy_override in candidates else best_cand
-        packet.best_candidate = selected_cand
-        packet.reconstructed_image = candidates[selected_cand]
-        packet.quality_metrics = all_metrics[selected_cand]
-        packet.all_candidate_metrics = all_metrics
-
-        # --- Stage 9: Confidence Estimation ---
-        report_step(85.0, "Stage 9: Calibrated pixel-level confidence mapping...")
-        conf_report = self.confidence_estimator.estimate(
-            cloud_mask=cloud_res["cloud_mask"],
-            cloud_prob=cloud_res["cloud_probability"],
-            change_prob=change_res["change_probability"],
-            candidates=candidates
-        )
-        packet.confidence_report = conf_report
-
-        # --- Stage 10: Analysis-Ready Products (NDVI, Land Cover & Sub-Cloud Feature Decoding) ---
-        report_step(92.0, "Stage 10: NDVI vegetation analytics & Sub-Cloud Ground Feature decoding...")
-        packet.ndvi_report = self.ndvi_analyzer.analyze(
-            reconstructed_image=packet.reconstructed_image,
-            reference_image=ref_norm
-        )
-        packet.landcover_report = self.landcover_classifier.classify(packet.reconstructed_image)
-        packet.sub_cloud_report = self.sub_cloud_predictor.predict_sub_cloud_features(
-            cloud_mask=cloud_res["cloud_mask"],
-            reconstructed_image=packet.reconstructed_image,
-            sar_image=sar_norm,
-            pixel_resolution_m=meta.resolution if meta else 10.0
-        )
-
-        # Export Analysis-Ready GeoTIFFs
-        cloud_free_tif = os.path.join(self.output_dir, f"{image_id}_cloud_free.tif")
-        conf_tif = os.path.join(self.output_dir, f"{image_id}_confidence.tif")
-        change_tif = os.path.join(self.output_dir, f"{image_id}_change_map.tif")
-
-        self.loader.save_raster(cloud_free_tif, packet.reconstructed_image, reference_meta=meta)
-        self.loader.save_raster(conf_tif, conf_report.confidence_map, reference_meta=meta)
-        self.loader.save_raster(change_tif, change_res["change_probability"], reference_meta=meta)
-
-        packet.cloud_free_geotiff_path = cloud_free_tif
-        packet.confidence_geotiff_path = conf_tif
-        packet.change_geotiff_path = change_tif
-
-        # --- Stage 11: PDF Quality Report & Delivery ---
-        report_step(98.0, "Stage 11: Compiling PDF Quality Inspection Report & Metadata...")
-        report_pdf = os.path.join(self.reports_dir, f"{image_id}_quality_report.pdf")
-        metadata_json = os.path.join(self.output_dir, f"{image_id}_metadata.json")
-
-        # Build preview RGBs for report
-        cloudy_rgb = ImagePreprocessor.extract_rgb_preview(cloudy_norm)
-        mask_rgb = np.stack([cloud_res["cloud_mask"] * 255, cloud_res["shadow_mask"] * 128, np.zeros((H, W), dtype=np.uint8)], axis=-1)
-        rec_rgb = ImagePreprocessor.extract_rgb_preview(packet.reconstructed_image)
-        conf_rgb = conf_report.colored_heatmap
-
-        packet_report_data = {
-            "image_id": image_id,
-            "metadata": meta.to_dict() if meta else {},
-            "metrics": packet.quality_metrics.to_dict(),
-            "decision": decision,
-            "cloud_percentage": cloud_res["cloud_percentage"],
-            "confidence_stats": conf_report.to_dict(),
-            "ndvi": packet.ndvi_report.to_dict(),
-            "landcover": packet.landcover_report.to_dict(),
-            "best_candidate": packet.best_candidate,
-            "cloudy_rgb": cloudy_rgb,
-            "cloud_mask_rgb": mask_rgb,
-            "reconstructed_rgb": rec_rgb,
-            "confidence_rgb": conf_rgb
+        state: Dict[str, Any] = {
+            "loader": self.loader, "preprocessor": self.preprocessor,
+            "cloud_model": self.cloud_model, "change_model": self.change_model,
+            "mrr_model": self.mrr_model, "decision_engine": self.decision_engine,
+            "qan": self.qan, "confidence_estimator": self.confidence_estimator,
+            "ndvi_analyzer": self.ndvi_analyzer,
+            "landcover_classifier": self.landcover_classifier,
+            "sub_cloud_predictor": self.sub_cloud_predictor,
+            "pdf_gen": self.pdf_generator,
+            "cloudy_path": cloudy_path, "historical_path": historical_path,
+            "sar_path": sar_path, "clear_reference_path": clear_reference_path,
+            "image_id": image_id, "output_dir": self.output_dir,
+            "reports_dir": self.reports_dir,
+            "strategy_override": strategy_override,
+            "has_sar": bool(sar_path and _os.path.exists(sar_path)),
+            "has_hist": bool(historical_path and _os.path.exists(historical_path)),
         }
+        orch = AgentOrchestrator([
+            DataRetrievalAgent(), PreprocessingAgent(), CloudDetectionAgent(),
+            ChangeDetectionAgent(), DecisionAgent(), FusionReconstructionAgent(),
+            QualityAgent(), ConfidenceAgent(), AnalyticsAgent(), DeliveryAgent(),
+        ])
+        report_step(5.0, f"Agent orchestrator start (mode={agent_mode})...")
+        if agent_mode == "sequential":
+            orch.run_sequential(state, progress=report_step)
+        else:
+            orch.run_adaptive(state, progress=report_step)
 
-        self.pdf_generator.generate_report(report_pdf, packet_report_data)
-        packet.report_pdf_path = report_pdf
-
-        with open(metadata_json, "w") as f:
-            json.dump(packet.to_summary_dict(), f, indent=2)
-        packet.metadata_json_path = metadata_json
+        # Map agent state back onto the legacy PredictionPacket (API/tests stable)
+        packet.metadata = state["meta"]
+        packet.cloudy_raw = state["cloudy_raw"]
+        packet.hist_raw = state["hist_raw"]
+        packet.sar_raw = state["sar_raw"]
+        packet.ref_raw = state["ref_raw"]
+        packet.cloud_detection = state["cloud_res"]
+        packet.change_detection = state["change_res"]
+        packet.decision = state["decision"]
+        packet.decision["agent_log"] = [
+            {"agent": m.agent, "action": m.action, "detail": m.detail} for m in orch.log
+        ]
+        packet.decision["agent_mode"] = agent_mode
+        packet.candidates = state["candidates"]
+        packet.best_candidate = state["best"]
+        packet.reconstructed_image = state["recon"]
+        packet.quality_metrics = state["quality"]
+        packet.all_candidate_metrics = state["all_metrics"]
+        packet.confidence_report = state["conf"]
+        packet.ndvi_report = state["ndvi"]
+        packet.landcover_report = state["lc"]
+        packet.sub_cloud_report = state["sub"]
+        packet.cloud_free_geotiff_path = state["cf"]
+        packet.confidence_geotiff_path = state["cf2"]
+        packet.change_geotiff_path = state["ch"]
+        packet.report_pdf_path = state["rep"]
+        packet.metadata_json_path = state["mjson"]
+        # Provenance + method flags (audit honesty)
+        try:
+            from ..models.registry import refresh_registry
+            prov = {
+                "qan_method": getattr(self.qan, "method", "metric"),
+                "landcover_method": getattr(self.landcover_classifier, "method", "rule-based"),
+                "cloud_weights": getattr(self.cloud_model, "weights_path", None),
+                "change_weights": getattr(self.change_model, "weights_path", None),
+                "model_registry": refresh_registry(),
+            }
+        except Exception:
+            prov = {}
+        with open(state["mjson"], "w") as f:
+            d = packet.to_summary_dict()
+            d["provenance"] = prov
+            json.dump(d, f, indent=2)
 
         packet.elapsed_seconds = time.time() - start_time
         packet.status = "Completed"
         report_step(100.0, f"Reconstruction pipeline completed successfully in {packet.elapsed_seconds:.2f}s!")
-
         return packet

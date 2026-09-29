@@ -1,9 +1,11 @@
 """
 Live Geospatial Map Satellite Fetcher Engine for CloudClear AI.
-Fetches real-world high-resolution optical satellite imagery (0.5m-5m ground resolution)
-directly from the live map tile stream for any spatial bounding box (e.g. Pune Hadapsar, Hinjawadi, etc.),
-synthesizes realistic atmospheric cloud occlusions, historical baseline, and Sentinel-1 SAR radar backscatter,
-and produces 4-band Analysis-Ready GeoTIFFs for the AI reconstruction pipeline.
+
+Provenance (audit Sec.2-4): Esri World Imagery tiles are real RGB basemap
+imagery, NOT genuine Sentinel-2 L2A / LISS-IV multispectral products. The NIR
+band (B8) here is *estimated* from RGB (pseudo-esri). Callers must propagate
+`data_source="pseudo-esri"` and `nir_is_estimated=True`. For genuine
+multispectral data use `fetch_satellite_data.SatelliteDataFetcher`.
 """
 
 import os
@@ -19,6 +21,11 @@ from scipy import ndimage
 from .data_loader import GeoTIFFLoader, ImageMetadata
 
 logger = logging.getLogger(__name__)
+
+# Shared provenance constants (mirrors fetch_satellite_data.SensorProvenance
+# without importing it to avoid circulars in lightweight environments).
+DATA_SOURCE_PSEUDO_ESRI = "pseudo-esri"
+DATA_SOURCE_SYNTHETIC = "synthetic"
 
 
 def deg2num(lat_deg: float, lon_deg: float, zoom: int) -> Tuple[int, int]:
@@ -162,12 +169,12 @@ class LiveMapSatelliteFetcher:
         sensor: str = "LISS-IV",
         res: float = 5.8
     ) -> Dict[str, Any]:
-        """
-        Creates complete real-world multi-modal satellite files:
-        1. Real-world clear optical image (from live satellite feed)
-        2. Real-world cloudy image (with realistic Perlin cloud + shadow occlusions)
-        3. Real-world historical reference
-        4. Real-world Sentinel-1 SAR microwave radar backscatter
+        """Creates multi-modal files for a map AOI.
+
+        Provenance: `data_source="pseudo-esri"` (Esri RGB + estimated NIR),
+        `nir_is_estimated=True`, SAR/historical/clouds are simulated overlays.
+        If `sensor == "LISS-IV"`, the label is stored as `LISS-IV (proxy)` —
+        see `fetch_satellite_data.SensorProvenance` — never genuine LISS-IV.
         """
         dirs = {
             "cloudy": os.path.join(self.cache_dir, "cloudy"),
@@ -245,7 +252,10 @@ class LiveMapSatelliteFetcher:
         ).astype(np.float32)
         sar_image = np.stack([sar_vv, sar_vh], axis=-1).astype(np.float32)
 
-        # Metadata
+        # Metadata (explicit proxy labelling for LISS-IV)
+        sensor_label = sensor
+        if sensor == "LISS-IV":
+            sensor_label = "LISS-IV (proxy: Esri RGB + estimated NIR)"
         meta = ImageMetadata(
             image_id=clean_id,
             filename=f"{clean_id}_cloudy.tif",
@@ -254,9 +264,9 @@ class LiveMapSatelliteFetcher:
             bands=4,
             crs="EPSG:4326",
             resolution=res,
-            sensor=sensor,
+            sensor=sensor_label,
             acquisition_date="2024-05-20",
-            region=region_name,
+            region=f"{region_name} [data_source=pseudo-esri, nir_is_estimated=True]",
             bounds=bounds,
             dtype="float32"
         )
@@ -276,13 +286,17 @@ class LiveMapSatelliteFetcher:
             "id": clean_id,
             "region": region_name,
             "terrain_type": terrain_type,
-            "optical_sensor": sensor,
-            "sar_sensor": "Sentinel-1 C-SAR",
+            "optical_sensor": sensor_label,
+            "sar_sensor": "Sentinel-1 C-SAR (simulated backscatter)",
             "date": "2024-05-20",
             "resolution": res,
             "resolution_m": res,
             "cloud_cover_pct": round(cloud_pct, 2),
             "bounds": list(bounds),
+            "data_source": DATA_SOURCE_PSEUDO_ESRI,
+            "nir_is_estimated": True,
+            "sar_is_simulated": True,
+            "historical_is_simulated": True,
             "files": {
                 "cloudy": cloudy_path,
                 "clear": clear_path,

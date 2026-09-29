@@ -35,7 +35,13 @@ class SubCloudFeaturePredictor:
     """
     Decodes multi-spectral optical reflectance and SAR radar dielectric properties
     to predict ground land features beneath cloud occlusions.
+
+    Method flag (audit Sec.12): `method="rule-based spectral+SAR (no learned weights)"`.
+    This is intentionally NOT labelled as a trained AI predictor; outputs include
+    per-class pixel counts + spectral profile so users can judge uncertainty.
     """
+
+    method = "rule-based spectral+SAR (no learned weights)"
 
     FEATURE_CLASSES = {
         0: ("Clear / Unobstructed Surface", [40, 50, 65], "#283241"),

@@ -89,20 +89,64 @@ class CloudDetectionModel:
     """
     High-level Cloud and Shadow Detector for CloudClear AI.
     Runs deep learning inference with physics-guided radiometric heuristics.
+    Supports trained weights via `weights_path` or default
+    `models/saved_models/cloud_detector.weights.h5` (audit Sec.6/13).
+    `use_learned_only=True` disables the spectral heuristic for pure-AI eval.
     """
 
-    def __init__(self, patch_size: int = 256):
+    def __init__(self, patch_size: int = 256, weights_path: Optional[str] = None,
+                 use_learned_only: bool = False):
+        import os
         self.patch_size = patch_size
+        self.use_learned_only = use_learned_only
         self.model = build_attention_unet(input_shape=(patch_size, patch_size, 4))
+        self.weights_path: Optional[str] = None
+        candidates = []
+        if weights_path:
+            candidates.append(weights_path)
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        candidates += [
+            os.path.join(base_dir, "models", "saved_models", "cloud_detector.weights.h5"),
+            os.path.join(base_dir, "models", "saved_models", "cloud_detector.h5"),
+        ]
+        for p in candidates:
+            if p and os.path.exists(p):
+                try:
+                    self.model.load_weights(p)
+                    self.weights_path = p
+                    break
+                except Exception:
+                    continue
         self._initialize_physics_weights()
 
     def _initialize_physics_weights(self):
         """
-        Initializes convolutional weights with remote sensing spectral heuristics:
-        - Clouds exhibit high reflectance across Visible (B2, B3, B4) and NIR (B8) with low Hot-spot difference.
-        - Shadows exhibit low overall brightness and high NIR drop.
+        Physics-informed init (audit Sec.7): bias the first conv layer so one
+        filter starts as a whiteness/brightness detector (clouds are bright
+        and spectrally flat) and another as a darkness/NIR-drop detector.
+        Training then refines these priors instead of starting from scratch.
         """
-        pass  # Model initialized with standard Keras initializers
+        try:
+            first_conv = None
+            for layer in self.model.layers:
+                if layer.__class__.__name__ == "Conv2D":
+                    first_conv = layer
+                    break
+            if first_conv is None:
+                return
+            w, b = first_conv.get_weights()
+            # w: (3,3,4,F). Set filter-0 to mean across bands, filter-1 to NIR-drop.
+            if w.shape[-1] >= 2 and w.shape[2] >= 4:
+                w[:] *= 0.9
+                w[:, :, 0, 0] += 0.05
+                w[:, :, 1, 0] += 0.05
+                w[:, :, 2, 0] += 0.05
+                w[:, :, 3, 0] += 0.05
+                w[:, :, :3, 1] -= 0.03
+                w[:, :, 3, 1] -= 0.06
+                first_conv.set_weights([w, b])
+        except Exception:
+            pass  # Model initialized with standard Keras initializers
 
     def predict(
         self,
@@ -155,8 +199,15 @@ class CloudDetectionModel:
         nn_shadow = tf.image.resize(nn_out[:, :, 1:2], (H, W)).numpy().squeeze(-1)
 
         # Combined ensemble probability (Physics-guided + Attention U-Net)
-        cloud_prob = np.clip(0.6 * spectral_cloud + 0.4 * nn_cloud, 0.0, 1.0)
-        shadow_prob = np.clip(0.6 * spectral_shadow + 0.4 * nn_shadow, 0.0, 1.0)
+        # If trained weights are loaded and pure-AI eval requested, trust the net.
+        if self.use_learned_only or (self.weights_path is not None and self.use_learned_only):
+            cloud_prob = np.clip(nn_cloud, 0.0, 1.0)
+            shadow_prob = np.clip(nn_shadow, 0.0, 1.0)
+        else:
+            blend_nn = 0.4 if self.weights_path is None else 0.65
+            blend_phys = 1.0 - blend_nn
+            cloud_prob = np.clip(blend_phys * spectral_cloud + blend_nn * nn_cloud, 0.0, 1.0)
+            shadow_prob = np.clip(blend_phys * spectral_shadow + blend_nn * nn_shadow, 0.0, 1.0)
 
         # Morphological smoothing to remove speckle noise
         cloud_prob = ndimage.gaussian_filter(cloud_prob, sigma=1.0)

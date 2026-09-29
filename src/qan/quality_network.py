@@ -34,8 +34,16 @@ class QualityAssessmentNetwork:
     """
 
     def __init__(self, model_path: Optional[str] = None):
+        # Auto-discover default learned weights so a trained DeepQAN is used
+        # without callers passing a path (audit Sec.10/13).
+        if model_path is None:
+            base = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            default = os.path.join(base, "models", "saved_models", "deep_qan.pt")
+            if os.path.exists(default):
+                model_path = default
         self.model_path = model_path
         self.model = None
+        self.method = "metric"
         
         if self.model_path and os.path.exists(self.model_path):
             try:
@@ -44,6 +52,7 @@ class QualityAssessmentNetwork:
                 self.model = DeepQAN(in_channels=8)
                 self.model.load_state_dict(torch.load(self.model_path, map_location='cpu'))
                 self.model.eval()
+                self.method = "learned-deepqan+metric-fallback"
             except ImportError:
                 pass
             except Exception as e:
