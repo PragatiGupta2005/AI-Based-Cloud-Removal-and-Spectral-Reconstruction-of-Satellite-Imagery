@@ -1,0 +1,45 @@
+{
+  "image_id": "scene_15_andhra_visakhapatnam",
+  "status": "Initialized",
+  "best_candidate": "C3",
+  "cloud_percentage": 16.5,
+  "shadow_percentage": 38.03,
+  "strategy": "adaptive",
+  "quality": {
+    "psnr": 27.93,
+    "ssim": 0.832,
+    "mae": 0.0367,
+    "rmse": 0.0401,
+    "sam": 4.51,
+    "ergas": 1.5,
+    "composite_score": 0.746,
+    "rating": "Moderate"
+  },
+  "confidence": {
+    "mean_confidence": 0.86,
+    "high_confidence_pct": 82.99,
+    "medium_confidence_pct": 13.86,
+    "low_confidence_pct": 3.14
+  },
+  "ndvi": {
+    "mean_ndvi": 0.164,
+    "reference_mean_ndvi": 0.14,
+    "ndvi_mae": 0.1473,
+    "vegetation_coverage_pct": 52.72
+  },
+  "landcover": {
+    "vegetation": 45.3,
+    "agriculture": 8.5,
+    "water": 46.1,
+    "urban": 0.0,
+    "bare_land": 0.0
+  },
+  "elapsed_seconds": 0.0,
+  "files": {
+    "cloud_free_geotiff": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\outputs\\scene_15_andhra_visakhapatnam_cloud_free.tif",
+    "confidence_geotiff": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\outputs\\scene_15_andhra_visakhapatnam_confidence.tif",
+    "change_geotiff": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\outputs\\scene_15_andhra_visakhapatnam_change_map.tif",
+    "pdf_report": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\reports\\scene_15_andhra_visakhapatnam_quality_report.pdf",
+    "metadata_json": null
+  }
+}

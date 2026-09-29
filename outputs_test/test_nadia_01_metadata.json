@@ -1,0 +1,45 @@
+{
+  "image_id": "test_nadia_01",
+  "status": "Initialized",
+  "best_candidate": "C1",
+  "cloud_percentage": 51.18,
+  "shadow_percentage": 3.68,
+  "strategy": "historical",
+  "quality": {
+    "psnr": 36.75,
+    "ssim": 0.976,
+    "mae": 0.009,
+    "rmse": 0.0145,
+    "sam": 1.36,
+    "ergas": 0.44,
+    "composite_score": 0.936,
+    "rating": "Excellent"
+  },
+  "confidence": {
+    "mean_confidence": 0.814,
+    "high_confidence_pct": 50.62,
+    "medium_confidence_pct": 48.35,
+    "low_confidence_pct": 1.03
+  },
+  "ndvi": {
+    "mean_ndvi": 0.714,
+    "reference_mean_ndvi": 0.715,
+    "ndvi_mae": 0.0169,
+    "vegetation_coverage_pct": 93.79
+  },
+  "landcover": {
+    "vegetation": 93.8,
+    "agriculture": 0.0,
+    "water": 6.2,
+    "urban": 0.0,
+    "bare_land": 0.0
+  },
+  "elapsed_seconds": 0.0,
+  "files": {
+    "cloud_free_geotiff": "outputs_test\\test_nadia_01_cloud_free.tif",
+    "confidence_geotiff": "outputs_test\\test_nadia_01_confidence.tif",
+    "change_geotiff": "outputs_test\\test_nadia_01_change_map.tif",
+    "pdf_report": "reports_test\\test_nadia_01_quality_report.pdf",
+    "metadata_json": null
+  }
+}

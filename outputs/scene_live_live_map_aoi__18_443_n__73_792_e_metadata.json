@@ -1,0 +1,45 @@
+{
+  "image_id": "scene_live_live_map_aoi__18_443_n__73_792_e",
+  "status": "Initialized",
+  "best_candidate": "C3",
+  "cloud_percentage": 20.15,
+  "shadow_percentage": 17.3,
+  "strategy": "adaptive",
+  "quality": {
+    "psnr": 28.08,
+    "ssim": 0.924,
+    "mae": 0.0261,
+    "rmse": 0.0394,
+    "sam": 2.61,
+    "ergas": 0.57,
+    "composite_score": 0.832,
+    "rating": "Good"
+  },
+  "confidence": {
+    "mean_confidence": 0.838,
+    "high_confidence_pct": 79.48,
+    "medium_confidence_pct": 20.52,
+    "low_confidence_pct": 0.0
+  },
+  "ndvi": {
+    "mean_ndvi": 0.096,
+    "reference_mean_ndvi": 0.116,
+    "ndvi_mae": 0.0319,
+    "vegetation_coverage_pct": 27.74
+  },
+  "landcover": {
+    "vegetation": 0.5,
+    "agriculture": 52.0,
+    "water": 18.5,
+    "urban": 20.4,
+    "bare_land": 8.5
+  },
+  "elapsed_seconds": 0.0,
+  "files": {
+    "cloud_free_geotiff": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\outputs\\scene_live_live_map_aoi__18_443_n__73_792_e_cloud_free.tif",
+    "confidence_geotiff": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\outputs\\scene_live_live_map_aoi__18_443_n__73_792_e_confidence.tif",
+    "change_geotiff": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\outputs\\scene_live_live_map_aoi__18_443_n__73_792_e_change_map.tif",
+    "pdf_report": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\reports\\scene_live_live_map_aoi__18_443_n__73_792_e_quality_report.pdf",
+    "metadata_json": null
+  }
+}

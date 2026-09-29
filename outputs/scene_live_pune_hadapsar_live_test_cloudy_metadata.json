@@ -1,0 +1,45 @@
+{
+  "image_id": "scene_live_pune_hadapsar_live_test_cloudy",
+  "status": "Initialized",
+  "best_candidate": "C1",
+  "cloud_percentage": 42.79,
+  "shadow_percentage": 10.62,
+  "strategy": "adaptive",
+  "quality": {
+    "psnr": 25.41,
+    "ssim": 0.892,
+    "mae": 0.0416,
+    "rmse": 0.0537,
+    "sam": 1.94,
+    "ergas": 0.69,
+    "composite_score": 0.806,
+    "rating": "Good"
+  },
+  "confidence": {
+    "mean_confidence": 0.78,
+    "high_confidence_pct": 55.57,
+    "medium_confidence_pct": 44.38,
+    "low_confidence_pct": 0.05
+  },
+  "ndvi": {
+    "mean_ndvi": 0.261,
+    "reference_mean_ndvi": 0.274,
+    "ndvi_mae": 0.0198,
+    "vegetation_coverage_pct": 29.42
+  },
+  "landcover": {
+    "vegetation": 5.1,
+    "agriculture": 35.2,
+    "water": 1.4,
+    "urban": 26.6,
+    "bare_land": 31.7
+  },
+  "elapsed_seconds": 0.0,
+  "files": {
+    "cloud_free_geotiff": "outputs\\scene_live_pune_hadapsar_live_test_cloudy_cloud_free.tif",
+    "confidence_geotiff": "outputs\\scene_live_pune_hadapsar_live_test_cloudy_confidence.tif",
+    "change_geotiff": "outputs\\scene_live_pune_hadapsar_live_test_cloudy_change_map.tif",
+    "pdf_report": "reports\\scene_live_pune_hadapsar_live_test_cloudy_quality_report.pdf",
+    "metadata_json": null
+  }
+}

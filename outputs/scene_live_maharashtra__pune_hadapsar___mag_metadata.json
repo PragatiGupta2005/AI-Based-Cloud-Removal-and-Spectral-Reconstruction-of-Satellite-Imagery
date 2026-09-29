@@ -1,0 +1,45 @@
+{
+  "image_id": "scene_live_maharashtra__pune_hadapsar___mag",
+  "status": "Initialized",
+  "best_candidate": "C1",
+  "cloud_percentage": 22.89,
+  "shadow_percentage": 7.97,
+  "strategy": "adaptive",
+  "quality": {
+    "psnr": 27.24,
+    "ssim": 0.902,
+    "mae": 0.0259,
+    "rmse": 0.0435,
+    "sam": 1.76,
+    "ergas": 0.59,
+    "composite_score": 0.829,
+    "rating": "Good"
+  },
+  "confidence": {
+    "mean_confidence": 0.836,
+    "high_confidence_pct": 76.4,
+    "medium_confidence_pct": 23.6,
+    "low_confidence_pct": 0.0
+  },
+  "ndvi": {
+    "mean_ndvi": 0.268,
+    "reference_mean_ndvi": 0.274,
+    "ndvi_mae": 0.0117,
+    "vegetation_coverage_pct": 31.72
+  },
+  "landcover": {
+    "vegetation": 5.5,
+    "agriculture": 38.4,
+    "water": 0.5,
+    "urban": 28.6,
+    "bare_land": 26.9
+  },
+  "elapsed_seconds": 0.0,
+  "files": {
+    "cloud_free_geotiff": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\outputs\\scene_live_maharashtra__pune_hadapsar___mag_cloud_free.tif",
+    "confidence_geotiff": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\outputs\\scene_live_maharashtra__pune_hadapsar___mag_confidence.tif",
+    "change_geotiff": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\outputs\\scene_live_maharashtra__pune_hadapsar___mag_change_map.tif",
+    "pdf_report": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\reports\\scene_live_maharashtra__pune_hadapsar___mag_quality_report.pdf",
+    "metadata_json": null
+  }
+}

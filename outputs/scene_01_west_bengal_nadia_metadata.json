@@ -1,0 +1,45 @@
+{
+  "image_id": "scene_01_west_bengal_nadia",
+  "status": "Initialized",
+  "best_candidate": "C1",
+  "cloud_percentage": 14.8,
+  "shadow_percentage": 2.34,
+  "strategy": "adaptive",
+  "quality": {
+    "psnr": 26.76,
+    "ssim": 0.803,
+    "mae": 0.035,
+    "rmse": 0.0459,
+    "sam": 5.31,
+    "ergas": 2.57,
+    "composite_score": 0.684,
+    "rating": "Moderate"
+  },
+  "confidence": {
+    "mean_confidence": 0.867,
+    "high_confidence_pct": 84.44,
+    "medium_confidence_pct": 14.29,
+    "low_confidence_pct": 1.27
+  },
+  "ndvi": {
+    "mean_ndvi": 0.649,
+    "reference_mean_ndvi": 0.759,
+    "ndvi_mae": 0.115,
+    "vegetation_coverage_pct": 92.54
+  },
+  "landcover": {
+    "vegetation": 78.4,
+    "agriculture": 16.7,
+    "water": 3.1,
+    "urban": 1.4,
+    "bare_land": 0.2
+  },
+  "elapsed_seconds": 0.0,
+  "files": {
+    "cloud_free_geotiff": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\outputs\\scene_01_west_bengal_nadia_cloud_free.tif",
+    "confidence_geotiff": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\outputs\\scene_01_west_bengal_nadia_confidence.tif",
+    "change_geotiff": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\outputs\\scene_01_west_bengal_nadia_change_map.tif",
+    "pdf_report": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\reports\\scene_01_west_bengal_nadia_quality_report.pdf",
+    "metadata_json": null
+  }
+}

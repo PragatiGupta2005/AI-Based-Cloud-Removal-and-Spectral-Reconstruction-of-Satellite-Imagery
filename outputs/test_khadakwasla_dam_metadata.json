@@ -1,0 +1,45 @@
+{
+  "image_id": "test_khadakwasla_dam",
+  "status": "Initialized",
+  "best_candidate": "C1",
+  "cloud_percentage": 20.28,
+  "shadow_percentage": 17.0,
+  "strategy": "adaptive",
+  "quality": {
+    "psnr": 25.18,
+    "ssim": 0.821,
+    "mae": 0.042,
+    "rmse": 0.0551,
+    "sam": 5.05,
+    "ergas": 1.02,
+    "composite_score": 0.728,
+    "rating": "Moderate"
+  },
+  "confidence": {
+    "mean_confidence": 0.848,
+    "high_confidence_pct": 78.5,
+    "medium_confidence_pct": 21.5,
+    "low_confidence_pct": 0.0
+  },
+  "ndvi": {
+    "mean_ndvi": 0.129,
+    "reference_mean_ndvi": 0.188,
+    "ndvi_mae": 0.0697,
+    "vegetation_coverage_pct": 54.18
+  },
+  "landcover": {
+    "vegetation": 0.8,
+    "agriculture": 66.7,
+    "water": 17.4,
+    "urban": 9.3,
+    "bare_land": 6.0
+  },
+  "elapsed_seconds": 0.0,
+  "files": {
+    "cloud_free_geotiff": "outputs\\test_khadakwasla_dam_cloud_free.tif",
+    "confidence_geotiff": "outputs\\test_khadakwasla_dam_confidence.tif",
+    "change_geotiff": "outputs\\test_khadakwasla_dam_change_map.tif",
+    "pdf_report": "reports\\test_khadakwasla_dam_quality_report.pdf",
+    "metadata_json": null
+  }
+}

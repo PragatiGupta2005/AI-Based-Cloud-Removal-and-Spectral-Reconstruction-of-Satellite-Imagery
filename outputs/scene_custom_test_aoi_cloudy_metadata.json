@@ -1,0 +1,45 @@
+{
+  "image_id": "scene_custom_test_aoi_cloudy",
+  "status": "Initialized",
+  "best_candidate": "C1",
+  "cloud_percentage": 24.39,
+  "shadow_percentage": 6.16,
+  "strategy": "adaptive",
+  "quality": {
+    "psnr": 31.55,
+    "ssim": 0.92,
+    "mae": 0.0205,
+    "rmse": 0.0264,
+    "sam": 2.58,
+    "ergas": 0.62,
+    "composite_score": 0.855,
+    "rating": "Excellent"
+  },
+  "confidence": {
+    "mean_confidence": 0.812,
+    "high_confidence_pct": 74.94,
+    "medium_confidence_pct": 24.26,
+    "low_confidence_pct": 0.8
+  },
+  "ndvi": {
+    "mean_ndvi": 0.308,
+    "reference_mean_ndvi": 0.332,
+    "ndvi_mae": 0.0424,
+    "vegetation_coverage_pct": 59.61
+  },
+  "landcover": {
+    "vegetation": 0.0,
+    "agriculture": 62.7,
+    "water": 3.9,
+    "urban": 2.8,
+    "bare_land": 30.6
+  },
+  "elapsed_seconds": 0.0,
+  "files": {
+    "cloud_free_geotiff": "outputs\\scene_custom_test_aoi_cloudy_cloud_free.tif",
+    "confidence_geotiff": "outputs\\scene_custom_test_aoi_cloudy_confidence.tif",
+    "change_geotiff": "outputs\\scene_custom_test_aoi_cloudy_change_map.tif",
+    "pdf_report": "reports\\scene_custom_test_aoi_cloudy_quality_report.pdf",
+    "metadata_json": null
+  }
+}
