@@ -1019,10 +1019,10 @@ elif nav_page == "📤 Upload / Select Data":
                 st.markdown(f"""
                 <div style="background:#111C2B; padding:10px; border-radius:8px; border:1px solid #3B82F6; margin-bottom:8px;">
                     <div style="font-weight:600; color:#93C5FD; font-size:13px;">{sc.get('region', r_name)}</div>
-                    <div style="font-size:11px; color:#94A3B8; margin-top:2px;">Res: {sc['resolution']}m | {sc['optical_sensor']}</div>
+                    <div style="font-size:11px; color:#94A3B8; margin-top:2px;">Res: {sc.get('resolution', sc.get('resolution_m', 10.0))}m | {sc.get('optical_sensor', 'N/A')}</div>
                 </div>
                 """, unsafe_allow_html=True)
-                if st.button(f"Process {r_name.split()[-1]}", key=f"btn_pune_{sc['image_id']}", use_container_width=True):
+                if st.button(f"Process {r_name.split()[-1]}", key=f"btn_pune_{sc.get('image_id', sc.get('id', r_name))}", use_container_width=True):
                     st.session_state.selected_sample = r_name
                     run_prediction_for_scene(sc)
                     st.rerun()
@@ -1034,12 +1034,12 @@ elif nav_page == "📤 Upload / Select Data":
             c_idx = idx % 3
             with all_r_cols[c_idx]:
                 with st.expander(f"📍 {r_name}", expanded=False):
-                    st.write(f"**Image ID:** `{sc['image_id']}`")
-                    st.write(f"**Acquisition Date:** {sc['date']}")
-                    st.write(f"**Sensors:** {sc['optical_sensor']} + {sc['sar_sensor']}")
-                    st.write(f"**CRS:** {sc['crs']} | **Resolution:** {sc['resolution']} m")
-                    st.write(f"**Coordinates:** `{sc['bounds']}`")
-                    if st.button(f"Load & Process {r_name}", key=f"btn_load_{sc['image_id']}", use_container_width=True):
+                    st.write(f"**Image ID:** `{sc.get('image_id', sc.get('id', r_name))}`")
+                    st.write(f"**Acquisition Date:** {sc.get('date', 'N/A')}")
+                    st.write(f"**Sensors:** {sc.get('optical_sensor', 'N/A')} + {sc.get('sar_sensor', 'N/A')}")
+                    st.write(f"**CRS:** {sc.get('crs', 'EPSG:4326')} | **Resolution:** {sc.get('resolution', sc.get('resolution_m', 10.0))} m")
+                    st.write(f"**Coordinates:** `{sc.get('bounds', 'N/A')}`")
+                    if st.button(f"Load & Process {r_name}", key=f"btn_load_{sc.get('image_id', sc.get('id', r_name))}", use_container_width=True):
                         st.session_state.selected_sample = r_name
                         run_prediction_for_scene(sc)
                         st.rerun()

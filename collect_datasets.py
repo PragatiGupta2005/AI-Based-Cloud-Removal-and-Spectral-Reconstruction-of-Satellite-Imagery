@@ -404,6 +404,7 @@ def generate_custom_aoi_scene(
         "optical_sensor": sensor,
         "sar_sensor": "Sentinel-1 C-SAR",
         "date": "2024-05-20",
+        "crs": "EPSG:4326",
         "resolution": res,
         "resolution_m": res,
         "cloud_cover_pct": round(cloud_pct, 2),
