@@ -1,12 +1,129 @@
 [
   {
-    "image_id": "scene_west_bengal_nadia",
-    "region": "West Bengal, Nadia District",
-    "date": "2024-05-12",
+    "image_id": "scene_pune_hadapsar",
+    "region": "Maharashtra, Pune Hadapsar & Magarpatta",
+    "terrain_type": "urban",
+    "date": "2024-05-18",
+    "optical_sensor": "LISS-IV",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 5.8,
+    "cloud_cover_pct": 4.84,
+    "bounds": [
+      73.915,
+      18.49,
+      73.965,
+      18.54
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_pune_hadapsar_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_pune_hadapsar_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_pune_hadapsar_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_pune_hadapsar_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_pune_hinjawadi",
+    "region": "Maharashtra, Pune Hinjawadi IT Hub",
+    "terrain_type": "urban",
+    "date": "2024-05-18",
     "optical_sensor": "Sentinel-2",
-    "sar_sensor": "Sentinel-1",
+    "sar_sensor": "Sentinel-1 C-SAR",
     "crs": "EPSG:4326",
     "resolution": 10.0,
+    "cloud_cover_pct": 0.5,
+    "bounds": [
+      73.71,
+      18.57,
+      73.76,
+      18.62
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_pune_hinjawadi_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_pune_hinjawadi_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_pune_hinjawadi_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_pune_hinjawadi_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_pune_kothrud",
+    "region": "Maharashtra, Pune Kothrud & Hills",
+    "terrain_type": "urban",
+    "date": "2024-05-18",
+    "optical_sensor": "LISS-IV",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 5.8,
+    "cloud_cover_pct": 5.73,
+    "bounds": [
+      73.79,
+      18.49,
+      73.84,
+      18.54
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_pune_kothrud_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_pune_kothrud_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_pune_kothrud_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_pune_kothrud_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_pune_shivajinagar",
+    "region": "Maharashtra, Pune Shivajinagar Confluence",
+    "terrain_type": "urban",
+    "date": "2024-05-18",
+    "optical_sensor": "LISS-IV",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 5.8,
+    "cloud_cover_pct": 7.17,
+    "bounds": [
+      73.835,
+      18.515,
+      73.885,
+      18.565
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_pune_shivajinagar_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_pune_shivajinagar_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_pune_shivajinagar_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_pune_shivajinagar_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_pune_khadakwasla",
+    "region": "Maharashtra, Pune Khadakwasla Lake",
+    "terrain_type": "forest",
+    "date": "2024-05-18",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 3.14,
+    "bounds": [
+      73.74,
+      18.41,
+      73.79,
+      18.46
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_pune_khadakwasla_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_pune_khadakwasla_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_pune_khadakwasla_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_pune_khadakwasla_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_01_west_bengal_nadia",
+    "region": "West Bengal, Nadia District",
+    "terrain_type": "agriculture",
+    "date": "2024-05-12",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 8.89,
     "bounds": [
       88.4,
       22.9,
@@ -14,20 +131,22 @@
       23.05
     ],
     "files": {
-      "cloudy": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\cloudy\\scene_west_bengal_nadia_cloudy.tif",
-      "clear": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\clear\\scene_west_bengal_nadia_clear.tif",
-      "historical": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\historical\\scene_west_bengal_nadia_historical.tif",
-      "sar": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\sar\\scene_west_bengal_nadia_sar.tif"
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_01_west_bengal_nadia_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_01_west_bengal_nadia_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_01_west_bengal_nadia_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_01_west_bengal_nadia_sar.tif"
     }
   },
   {
-    "image_id": "scene_maharashtra_pune",
-    "region": "Maharashtra, Pune Mula-Mutha Basin",
+    "image_id": "scene_02_maharashtra_pune",
+    "region": "Maharashtra, Pune Metropolitan Basin",
+    "terrain_type": "urban",
     "date": "2024-04-18",
     "optical_sensor": "LISS-IV",
-    "sar_sensor": "Sentinel-1",
+    "sar_sensor": "Sentinel-1 C-SAR",
     "crs": "EPSG:4326",
     "resolution": 5.8,
+    "cloud_cover_pct": 1.5,
     "bounds": [
       73.8,
       18.45,
@@ -35,20 +154,22 @@
       18.6
     ],
     "files": {
-      "cloudy": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\cloudy\\scene_maharashtra_pune_cloudy.tif",
-      "clear": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\clear\\scene_maharashtra_pune_clear.tif",
-      "historical": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\historical\\scene_maharashtra_pune_historical.tif",
-      "sar": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\sar\\scene_maharashtra_pune_sar.tif"
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_02_maharashtra_pune_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_02_maharashtra_pune_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_02_maharashtra_pune_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_02_maharashtra_pune_sar.tif"
     }
   },
   {
-    "image_id": "scene_kerala_alappuzha",
-    "region": "Kerala, Alappuzha Coastal Region",
+    "image_id": "scene_03_kerala_alappuzha",
+    "region": "Kerala, Alappuzha Backwaters",
+    "terrain_type": "coastal",
     "date": "2024-06-02",
     "optical_sensor": "Sentinel-2",
-    "sar_sensor": "Sentinel-1",
+    "sar_sensor": "Sentinel-1 C-SAR",
     "crs": "EPSG:4326",
     "resolution": 10.0,
+    "cloud_cover_pct": 2.06,
     "bounds": [
       76.3,
       9.45,
@@ -56,10 +177,631 @@
       9.6
     ],
     "files": {
-      "cloudy": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\cloudy\\scene_kerala_alappuzha_cloudy.tif",
-      "clear": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\clear\\scene_kerala_alappuzha_clear.tif",
-      "historical": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\historical\\scene_kerala_alappuzha_historical.tif",
-      "sar": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\sar\\scene_kerala_alappuzha_sar.tif"
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_03_kerala_alappuzha_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_03_kerala_alappuzha_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_03_kerala_alappuzha_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_03_kerala_alappuzha_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_04_punjab_ludhiana",
+    "region": "Punjab, Ludhiana Farms",
+    "terrain_type": "agriculture",
+    "date": "2024-03-22",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 3.03,
+    "bounds": [
+      75.8,
+      30.85,
+      75.95,
+      31.0
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_04_punjab_ludhiana_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_04_punjab_ludhiana_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_04_punjab_ludhiana_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_04_punjab_ludhiana_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_05_karnataka_bengaluru",
+    "region": "Karnataka, Bengaluru Urban",
+    "terrain_type": "urban",
+    "date": "2024-04-10",
+    "optical_sensor": "LISS-IV",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 5.8,
+    "cloud_cover_pct": 2.96,
+    "bounds": [
+      77.55,
+      12.9,
+      77.7,
+      13.05
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_05_karnataka_bengaluru_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_05_karnataka_bengaluru_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_05_karnataka_bengaluru_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_05_karnataka_bengaluru_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_06_uttarakhand_dehradun",
+    "region": "Uttarakhand, Dehradun Valley",
+    "terrain_type": "forest",
+    "date": "2024-05-04",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 2.29,
+    "bounds": [
+      77.98,
+      30.28,
+      78.13,
+      30.43
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_06_uttarakhand_dehradun_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_06_uttarakhand_dehradun_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_06_uttarakhand_dehradun_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_06_uttarakhand_dehradun_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_07_rajasthan_jaisalmer",
+    "region": "Rajasthan, Thar Desert",
+    "terrain_type": "arid",
+    "date": "2024-02-15",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 4.92,
+    "bounds": [
+      70.85,
+      26.85,
+      71.0,
+      27.0
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_07_rajasthan_jaisalmer_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_07_rajasthan_jaisalmer_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_07_rajasthan_jaisalmer_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_07_rajasthan_jaisalmer_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_08_odisha_cuttack",
+    "region": "Odisha, Mahanadi Delta",
+    "terrain_type": "agriculture",
+    "date": "2024-06-18",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 2.55,
+    "bounds": [
+      85.8,
+      20.4,
+      85.95,
+      20.55
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_08_odisha_cuttack_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_08_odisha_cuttack_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_08_odisha_cuttack_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_08_odisha_cuttack_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_09_assam_kaziranga",
+    "region": "Assam, Brahmaputra Floodplain",
+    "terrain_type": "wetland",
+    "date": "2024-07-02",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 2.81,
+    "bounds": [
+      93.3,
+      26.6,
+      93.45,
+      26.75
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_09_assam_kaziranga_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_09_assam_kaziranga_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_09_assam_kaziranga_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_09_assam_kaziranga_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_10_tamilnadu_cauvery",
+    "region": "Tamil Nadu, Cauvery Delta",
+    "terrain_type": "agriculture",
+    "date": "2024-01-28",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 6.57,
+    "bounds": [
+      79.1,
+      10.75,
+      79.25,
+      10.9
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_10_tamilnadu_cauvery_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_10_tamilnadu_cauvery_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_10_tamilnadu_cauvery_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_10_tamilnadu_cauvery_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_11_telangana_hyderabad",
+    "region": "Telangana, Hyderabad Plateau",
+    "terrain_type": "urban",
+    "date": "2024-03-14",
+    "optical_sensor": "LISS-IV",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 5.8,
+    "cloud_cover_pct": 4.57,
+    "bounds": [
+      78.4,
+      17.3,
+      78.55,
+      17.45
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_11_telangana_hyderabad_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_11_telangana_hyderabad_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_11_telangana_hyderabad_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_11_telangana_hyderabad_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_12_gujarat_kutch",
+    "region": "Gujarat, Rann of Kutch",
+    "terrain_type": "arid",
+    "date": "2024-02-20",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 0.32,
+    "bounds": [
+      69.8,
+      23.7,
+      69.95,
+      23.85
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_12_gujarat_kutch_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_12_gujarat_kutch_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_12_gujarat_kutch_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_12_gujarat_kutch_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_13_madhyapradesh_bhopal",
+    "region": "Madhya Pradesh, Upper Lake",
+    "terrain_type": "forest",
+    "date": "2024-04-25",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 2.25,
+    "bounds": [
+      77.35,
+      23.2,
+      77.5,
+      23.35
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_13_madhyapradesh_bhopal_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_13_madhyapradesh_bhopal_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_13_madhyapradesh_bhopal_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_13_madhyapradesh_bhopal_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_14_himachal_shimla",
+    "region": "Himachal Pradesh, Himalayan Range",
+    "terrain_type": "mountain",
+    "date": "2024-05-18",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 5.05,
+    "bounds": [
+      77.1,
+      31.05,
+      77.25,
+      31.2
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_14_himachal_shimla_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_14_himachal_shimla_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_14_himachal_shimla_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_14_himachal_shimla_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_15_andhra_visakhapatnam",
+    "region": "Andhra Pradesh, Vizag Coast",
+    "terrain_type": "coastal",
+    "date": "2024-04-02",
+    "optical_sensor": "LISS-IV",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 5.8,
+    "cloud_cover_pct": 5.98,
+    "bounds": [
+      83.25,
+      17.65,
+      83.4,
+      17.8
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_15_andhra_visakhapatnam_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_15_andhra_visakhapatnam_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_15_andhra_visakhapatnam_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_15_andhra_visakhapatnam_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_16_bihar_patna",
+    "region": "Bihar, Gangetic Plains",
+    "terrain_type": "agriculture",
+    "date": "2024-03-30",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 0.34,
+    "bounds": [
+      85.1,
+      25.55,
+      85.25,
+      25.7
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_16_bihar_patna_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_16_bihar_patna_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_16_bihar_patna_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_16_bihar_patna_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_17_jharkhand_ranchi",
+    "region": "Jharkhand, Chota Nagpur Plateau",
+    "terrain_type": "forest",
+    "date": "2024-05-11",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 5.26,
+    "bounds": [
+      85.28,
+      23.3,
+      85.43,
+      23.45
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_17_jharkhand_ranchi_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_17_jharkhand_ranchi_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_17_jharkhand_ranchi_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_17_jharkhand_ranchi_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_18_chhattisgarh_bastar",
+    "region": "Chhattisgarh, Indravati Forest",
+    "terrain_type": "forest",
+    "date": "2024-06-08",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 6.13,
+    "bounds": [
+      81.8,
+      19.1,
+      81.95,
+      19.25
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_18_chhattisgarh_bastar_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_18_chhattisgarh_bastar_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_18_chhattisgarh_bastar_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_18_chhattisgarh_bastar_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_19_goa_mandovi",
+    "region": "Goa, Mandovi Estuary",
+    "terrain_type": "coastal",
+    "date": "2024-05-20",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 4.77,
+    "bounds": [
+      73.8,
+      15.45,
+      73.95,
+      15.6
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_19_goa_mandovi_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_19_goa_mandovi_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_19_goa_mandovi_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_19_goa_mandovi_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_20_haryana_karnal",
+    "region": "Haryana, Agro Corridor",
+    "terrain_type": "agriculture",
+    "date": "2024-02-28",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 4.22,
+    "bounds": [
+      76.9,
+      29.65,
+      77.05,
+      29.8
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_20_haryana_karnal_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_20_haryana_karnal_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_20_haryana_karnal_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_20_haryana_karnal_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_21_uttarpradesh_varanasi",
+    "region": "Uttar Pradesh, Varanasi Basin",
+    "terrain_type": "agriculture",
+    "date": "2024-04-05",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 3.52,
+    "bounds": [
+      82.95,
+      25.25,
+      83.1,
+      25.4
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_21_uttarpradesh_varanasi_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_21_uttarpradesh_varanasi_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_21_uttarpradesh_varanasi_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_21_uttarpradesh_varanasi_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_22_maharashtra_nashik",
+    "region": "Maharashtra, Godavari River",
+    "terrain_type": "agriculture",
+    "date": "2024-03-18",
+    "optical_sensor": "LISS-IV",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 5.8,
+    "cloud_cover_pct": 2.28,
+    "bounds": [
+      73.75,
+      19.95,
+      73.9,
+      20.1
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_22_maharashtra_nashik_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_22_maharashtra_nashik_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_22_maharashtra_nashik_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_22_maharashtra_nashik_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_23_kerala_wayanad",
+    "region": "Kerala, Western Ghats Highlands",
+    "terrain_type": "forest",
+    "date": "2024-06-15",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 5.25,
+    "bounds": [
+      76.05,
+      11.6,
+      76.2,
+      11.75
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_23_kerala_wayanad_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_23_kerala_wayanad_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_23_kerala_wayanad_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_23_kerala_wayanad_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_24_westbengal_sunderbans",
+    "region": "West Bengal, Sunderbans Delta",
+    "terrain_type": "wetland",
+    "date": "2024-05-30",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 7.53,
+    "bounds": [
+      88.75,
+      21.8,
+      88.9,
+      21.95
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_24_westbengal_sunderbans_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_24_westbengal_sunderbans_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_24_westbengal_sunderbans_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_24_westbengal_sunderbans_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_25_karnataka_mysuru",
+    "region": "Karnataka, Mysuru Basin",
+    "terrain_type": "agriculture",
+    "date": "2024-01-20",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 1.69,
+    "bounds": [
+      76.6,
+      12.25,
+      76.75,
+      12.4
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_25_karnataka_mysuru_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_25_karnataka_mysuru_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_25_karnataka_mysuru_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_25_karnataka_mysuru_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_26_gujarat_surat",
+    "region": "Gujarat, Tapi Coastal Plain",
+    "terrain_type": "urban",
+    "date": "2024-04-12",
+    "optical_sensor": "LISS-IV",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 5.8,
+    "cloud_cover_pct": 3.41,
+    "bounds": [
+      72.78,
+      21.15,
+      72.93,
+      21.3
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_26_gujarat_surat_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_26_gujarat_surat_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_26_gujarat_surat_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_26_gujarat_surat_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_27_tamilnadu_madurai",
+    "region": "Tamil Nadu, Vaigai Basin",
+    "terrain_type": "agriculture",
+    "date": "2024-02-10",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 1.6,
+    "bounds": [
+      78.08,
+      9.88,
+      78.23,
+      10.03
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_27_tamilnadu_madurai_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_27_tamilnadu_madurai_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_27_tamilnadu_madurai_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_27_tamilnadu_madurai_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_28_rajasthan_udaipur",
+    "region": "Rajasthan, Aravalli Lakes",
+    "terrain_type": "mountain",
+    "date": "2024-03-08",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 2.04,
+    "bounds": [
+      73.65,
+      24.55,
+      73.8,
+      24.7
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_28_rajasthan_udaipur_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_28_rajasthan_udaipur_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_28_rajasthan_udaipur_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_28_rajasthan_udaipur_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_29_odisha_chilika",
+    "region": "Odisha, Chilika Lagoon",
+    "terrain_type": "coastal",
+    "date": "2024-06-25",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 3.12,
+    "bounds": [
+      85.25,
+      19.65,
+      85.4,
+      19.8
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_29_odisha_chilika_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_29_odisha_chilika_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_29_odisha_chilika_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_29_odisha_chilika_sar.tif"
+    }
+  },
+  {
+    "image_id": "scene_30_assam_guwahati",
+    "region": "Assam, Kamrup Hills",
+    "terrain_type": "wetland",
+    "date": "2024-07-10",
+    "optical_sensor": "Sentinel-2",
+    "sar_sensor": "Sentinel-1 C-SAR",
+    "crs": "EPSG:4326",
+    "resolution": 10.0,
+    "cloud_cover_pct": 2.21,
+    "bounds": [
+      91.7,
+      26.1,
+      91.85,
+      26.25
+    ],
+    "files": {
+      "cloudy": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\cloudy\\scene_30_assam_guwahati_cloudy.tif",
+      "clear": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\clear\\scene_30_assam_guwahati_clear.tif",
+      "historical": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\historical\\scene_30_assam_guwahati_historical.tif",
+      "sar": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\data\\sar\\scene_30_assam_guwahati_sar.tif"
     }
   }
 ]

@@ -161,46 +161,7 @@ def generate_full_dataset_catalog():
     for d in dirs.values():
         os.makedirs(d, exist_ok=True)
 
-    regions_spec = [
-        # Pune Specific Micro-Neighborhoods
-        ("scene_pune_hadapsar", "Maharashtra, Pune Hadapsar & Magarpatta", "urban", "LISS-IV", 5.8, (73.915, 18.490, 73.965, 18.540), "2024-05-18"),
-        ("scene_pune_hinjawadi", "Maharashtra, Pune Hinjawadi IT Hub", "urban", "Sentinel-2", 10.0, (73.710, 18.570, 73.760, 18.620), "2024-05-18"),
-        ("scene_pune_kothrud", "Maharashtra, Pune Kothrud & Hills", "urban", "LISS-IV", 5.8, (73.790, 18.490, 73.840, 18.540), "2024-05-18"),
-        ("scene_pune_shivajinagar", "Maharashtra, Pune Shivajinagar Confluence", "urban", "LISS-IV", 5.8, (73.835, 18.515, 73.885, 18.565), "2024-05-18"),
-        ("scene_pune_khadakwasla", "Maharashtra, Pune Khadakwasla Lake", "forest", "Sentinel-2", 10.0, (73.740, 18.410, 73.790, 18.460), "2024-05-18"),
-
-        # Indian Regional Geographic Diversity
-        ("scene_01_west_bengal_nadia", "West Bengal, Nadia District", "agriculture", "Sentinel-2", 10.0, (88.40, 22.90, 88.55, 23.05), "2024-05-12"),
-        ("scene_02_maharashtra_pune", "Maharashtra, Pune Metropolitan Basin", "urban", "LISS-IV", 5.8, (73.80, 18.45, 73.95, 18.60), "2024-04-18"),
-        ("scene_03_kerala_alappuzha", "Kerala, Alappuzha Backwaters", "coastal", "Sentinel-2", 10.0, (76.30, 9.45, 76.45, 9.60), "2024-06-02"),
-        ("scene_04_punjab_ludhiana", "Punjab, Ludhiana Farms", "agriculture", "Sentinel-2", 10.0, (75.80, 30.85, 75.95, 31.00), "2024-03-22"),
-        ("scene_05_karnataka_bengaluru", "Karnataka, Bengaluru Urban", "urban", "LISS-IV", 5.8, (77.55, 12.90, 77.70, 13.05), "2024-04-10"),
-        ("scene_06_uttarakhand_dehradun", "Uttarakhand, Dehradun Valley", "forest", "Sentinel-2", 10.0, (77.98, 30.28, 78.13, 30.43), "2024-05-04"),
-        ("scene_07_rajasthan_jaisalmer", "Rajasthan, Thar Desert", "arid", "Sentinel-2", 10.0, (70.85, 26.85, 71.00, 27.00), "2024-02-15"),
-        ("scene_08_odisha_cuttack", "Odisha, Mahanadi Delta", "agriculture", "Sentinel-2", 10.0, (85.80, 20.40, 85.95, 20.55), "2024-06-18"),
-        ("scene_09_assam_kaziranga", "Assam, Brahmaputra Floodplain", "wetland", "Sentinel-2", 10.0, (93.30, 26.60, 93.45, 26.75), "2024-07-02"),
-        ("scene_10_tamilnadu_cauvery", "Tamil Nadu, Cauvery Delta", "agriculture", "Sentinel-2", 10.0, (79.10, 10.75, 79.25, 10.90), "2024-01-28"),
-        ("scene_11_telangana_hyderabad", "Telangana, Hyderabad Plateau", "urban", "LISS-IV", 5.8, (78.40, 17.30, 78.55, 17.45), "2024-03-14"),
-        ("scene_12_gujarat_kutch", "Gujarat, Rann of Kutch", "arid", "Sentinel-2", 10.0, (69.80, 23.70, 69.95, 23.85), "2024-02-20"),
-        ("scene_13_madhyapradesh_bhopal", "Madhya Pradesh, Upper Lake", "forest", "Sentinel-2", 10.0, (77.35, 23.20, 77.50, 23.35), "2024-04-25"),
-        ("scene_14_himachal_shimla", "Himachal Pradesh, Himalayan Range", "mountain", "Sentinel-2", 10.0, (77.10, 31.05, 77.25, 31.20), "2024-05-18"),
-        ("scene_15_andhra_visakhapatnam", "Andhra Pradesh, Vizag Coast", "coastal", "LISS-IV", 5.8, (83.25, 17.65, 83.40, 17.80), "2024-04-02"),
-        ("scene_16_bihar_patna", "Bihar, Gangetic Plains", "agriculture", "Sentinel-2", 10.0, (85.10, 25.55, 85.25, 25.70), "2024-03-30"),
-        ("scene_17_jharkhand_ranchi", "Jharkhand, Chota Nagpur Plateau", "forest", "Sentinel-2", 10.0, (85.28, 23.30, 85.43, 23.45), "2024-05-11"),
-        ("scene_18_chhattisgarh_bastar", "Chhattisgarh, Indravati Forest", "forest", "Sentinel-2", 10.0, (81.80, 19.10, 81.95, 19.25), "2024-06-08"),
-        ("scene_19_goa_mandovi", "Goa, Mandovi Estuary", "coastal", "Sentinel-2", 10.0, (73.80, 15.45, 73.95, 15.60), "2024-05-20"),
-        ("scene_20_haryana_karnal", "Haryana, Agro Corridor", "agriculture", "Sentinel-2", 10.0, (76.90, 29.65, 77.05, 29.80), "2024-02-28"),
-        ("scene_21_uttarpradesh_varanasi", "Uttar Pradesh, Varanasi Basin", "agriculture", "Sentinel-2", 10.0, (82.95, 25.25, 83.10, 25.40), "2024-04-05"),
-        ("scene_22_maharashtra_nashik", "Maharashtra, Godavari River", "agriculture", "LISS-IV", 5.8, (73.75, 19.95, 73.90, 20.10), "2024-03-18"),
-        ("scene_23_kerala_wayanad", "Kerala, Western Ghats Highlands", "forest", "Sentinel-2", 10.0, (76.05, 11.60, 76.20, 11.75), "2024-06-15"),
-        ("scene_24_westbengal_sunderbans", "West Bengal, Sunderbans Delta", "wetland", "Sentinel-2", 10.0, (88.75, 21.80, 88.90, 21.95), "2024-05-30"),
-        ("scene_25_karnataka_mysuru", "Karnataka, Mysuru Basin", "agriculture", "Sentinel-2", 10.0, (76.60, 12.25, 76.75, 12.40), "2024-01-20"),
-        ("scene_26_gujarat_surat", "Gujarat, Tapi Coastal Plain", "urban", "LISS-IV", 5.8, (72.78, 21.15, 72.93, 21.30), "2024-04-12"),
-        ("scene_27_tamilnadu_madurai", "Tamil Nadu, Vaigai Basin", "agriculture", "Sentinel-2", 10.0, (78.08, 9.88, 78.23, 10.03), "2024-02-10"),
-        ("scene_28_rajasthan_udaipur", "Rajasthan, Aravalli Lakes", "mountain", "Sentinel-2", 10.0, (73.65, 24.55, 73.80, 24.70), "2024-03-08"),
-        ("scene_29_odisha_chilika", "Odisha, Chilika Lagoon", "coastal", "Sentinel-2", 10.0, (85.25, 19.65, 85.40, 19.80), "2024-06-25"),
-        ("scene_30_assam_guwahati", "Assam, Kamrup Hills", "wetland", "Sentinel-2", 10.0, (91.70, 26.10, 91.85, 26.25), "2024-07-10")
-    ]
+    regions_spec = REGIONS_SPEC
 
     H, W = 512, 512
     manifest = []
@@ -324,6 +285,121 @@ def generate_full_dataset_catalog():
     print(f"Metadata CSV: {csv_path}")
 
 
+# Module-level catalog so both generation and manifest-rebuild share one table:
+# (scene_id, region, terrain, optical_sensor, resolution_m, bounds, date)
+REGIONS_SPEC = [
+    # Pune Specific Micro-Neighborhoods
+    ("scene_pune_hadapsar", "Maharashtra, Pune Hadapsar & Magarpatta", "urban", "LISS-IV", 5.8, (73.915, 18.490, 73.965, 18.540), "2024-05-18"),
+    ("scene_pune_hinjawadi", "Maharashtra, Pune Hinjawadi IT Hub", "urban", "Sentinel-2", 10.0, (73.710, 18.570, 73.760, 18.620), "2024-05-18"),
+    ("scene_pune_kothrud", "Maharashtra, Pune Kothrud & Hills", "urban", "LISS-IV", 5.8, (73.790, 18.490, 73.840, 18.540), "2024-05-18"),
+    ("scene_pune_shivajinagar", "Maharashtra, Pune Shivajinagar Confluence", "urban", "LISS-IV", 5.8, (73.835, 18.515, 73.885, 18.565), "2024-05-18"),
+    ("scene_pune_khadakwasla", "Maharashtra, Pune Khadakwasla Lake", "forest", "Sentinel-2", 10.0, (73.740, 18.410, 73.790, 18.460), "2024-05-18"),
+    # Indian Regional Geographic Diversity
+    ("scene_01_west_bengal_nadia", "West Bengal, Nadia District", "agriculture", "Sentinel-2", 10.0, (88.40, 22.90, 88.55, 23.05), "2024-05-12"),
+    ("scene_02_maharashtra_pune", "Maharashtra, Pune Metropolitan Basin", "urban", "LISS-IV", 5.8, (73.80, 18.45, 73.95, 18.60), "2024-04-18"),
+    ("scene_03_kerala_alappuzha", "Kerala, Alappuzha Backwaters", "coastal", "Sentinel-2", 10.0, (76.30, 9.45, 76.45, 9.60), "2024-06-02"),
+    ("scene_04_punjab_ludhiana", "Punjab, Ludhiana Farms", "agriculture", "Sentinel-2", 10.0, (75.80, 30.85, 75.95, 31.00), "2024-03-22"),
+    ("scene_05_karnataka_bengaluru", "Karnataka, Bengaluru Urban", "urban", "LISS-IV", 5.8, (77.55, 12.90, 77.70, 13.05), "2024-04-10"),
+    ("scene_06_uttarakhand_dehradun", "Uttarakhand, Dehradun Valley", "forest", "Sentinel-2", 10.0, (77.98, 30.28, 78.13, 30.43), "2024-05-04"),
+    ("scene_07_rajasthan_jaisalmer", "Rajasthan, Thar Desert", "arid", "Sentinel-2", 10.0, (70.85, 26.85, 71.00, 27.00), "2024-02-15"),
+    ("scene_08_odisha_cuttack", "Odisha, Mahanadi Delta", "agriculture", "Sentinel-2", 10.0, (85.80, 20.40, 85.95, 20.55), "2024-06-18"),
+    ("scene_09_assam_kaziranga", "Assam, Brahmaputra Floodplain", "wetland", "Sentinel-2", 10.0, (93.30, 26.60, 93.45, 26.75), "2024-07-02"),
+    ("scene_10_tamilnadu_cauvery", "Tamil Nadu, Cauvery Delta", "agriculture", "Sentinel-2", 10.0, (79.10, 10.75, 79.25, 10.90), "2024-01-28"),
+    ("scene_11_telangana_hyderabad", "Telangana, Hyderabad Plateau", "urban", "LISS-IV", 5.8, (78.40, 17.30, 78.55, 17.45), "2024-03-14"),
+    ("scene_12_gujarat_kutch", "Gujarat, Rann of Kutch", "arid", "Sentinel-2", 10.0, (69.80, 23.70, 69.95, 23.85), "2024-02-20"),
+    ("scene_13_madhyapradesh_bhopal", "Madhya Pradesh, Upper Lake", "forest", "Sentinel-2", 10.0, (77.35, 23.20, 77.50, 23.35), "2024-04-25"),
+    ("scene_14_himachal_shimla", "Himachal Pradesh, Himalayan Range", "mountain", "Sentinel-2", 10.0, (77.10, 31.05, 77.25, 31.20), "2024-05-18"),
+    ("scene_15_andhra_visakhapatnam", "Andhra Pradesh, Vizag Coast", "coastal", "LISS-IV", 5.8, (83.25, 17.65, 83.40, 17.80), "2024-04-02"),
+    ("scene_16_bihar_patna", "Bihar, Gangetic Plains", "agriculture", "Sentinel-2", 10.0, (85.10, 25.55, 85.25, 25.70), "2024-03-30"),
+    ("scene_17_jharkhand_ranchi", "Jharkhand, Chota Nagpur Plateau", "forest", "Sentinel-2", 10.0, (85.28, 23.30, 85.43, 23.45), "2024-05-11"),
+    ("scene_18_chhattisgarh_bastar", "Chhattisgarh, Indravati Forest", "forest", "Sentinel-2", 10.0, (81.80, 19.10, 81.95, 19.25), "2024-06-08"),
+    ("scene_19_goa_mandovi", "Goa, Mandovi Estuary", "coastal", "Sentinel-2", 10.0, (73.80, 15.45, 73.95, 15.60), "2024-05-20"),
+    ("scene_20_haryana_karnal", "Haryana, Agro Corridor", "agriculture", "Sentinel-2", 10.0, (76.90, 29.65, 77.05, 29.80), "2024-02-28"),
+    ("scene_21_uttarpradesh_varanasi", "Uttar Pradesh, Varanasi Basin", "agriculture", "Sentinel-2", 10.0, (82.95, 25.25, 83.10, 25.40), "2024-04-05"),
+    ("scene_22_maharashtra_nashik", "Maharashtra, Godavari River", "agriculture", "LISS-IV", 5.8, (73.75, 19.95, 73.90, 20.10), "2024-03-18"),
+    ("scene_23_kerala_wayanad", "Kerala, Western Ghats Highlands", "forest", "Sentinel-2", 10.0, (76.05, 11.60, 76.20, 11.75), "2024-06-15"),
+    ("scene_24_westbengal_sunderbans", "West Bengal, Sunderbans Delta", "wetland", "Sentinel-2", 10.0, (88.75, 21.80, 88.90, 21.95), "2024-05-30"),
+    ("scene_25_karnataka_mysuru", "Karnataka, Mysuru Basin", "agriculture", "Sentinel-2", 10.0, (76.60, 12.25, 76.75, 12.40), "2024-01-20"),
+    ("scene_26_gujarat_surat", "Gujarat, Tapi Coastal Plain", "urban", "LISS-IV", 5.8, (72.78, 21.15, 72.93, 21.30), "2024-04-12"),
+    ("scene_27_tamilnadu_madurai", "Tamil Nadu, Vaigai Basin", "agriculture", "Sentinel-2", 10.0, (78.08, 9.88, 78.23, 10.03), "2024-02-10"),
+    ("scene_28_rajasthan_udaipur", "Rajasthan, Aravalli Lakes", "mountain", "Sentinel-2", 10.0, (73.65, 24.55, 73.80, 24.70), "2024-03-08"),
+    ("scene_29_odisha_chilika", "Odisha, Chilika Lagoon", "coastal", "Sentinel-2", 10.0, (85.25, 19.65, 85.40, 19.80), "2024-06-25"),
+    ("scene_30_assam_guwahati", "Assam, Kamrup Hills", "wetland", "Sentinel-2", 10.0, (91.70, 26.10, 91.85, 26.25), "2024-07-10"),
+]
+
+
+def rebuild_manifest_from_disk() -> Dict[str, Any]:
+    """Rebuilds dataset_manifest.json + metadata.csv from GeoTIFFs already on disk.
+
+    Used when data/*.tif exist (e.g. generated earlier) but the manifest is
+    stale and lists only a few scenes. Only catalog scenes with all 4 files
+    (cloudy/clear/historical/sar) are included. No regeneration.
+    """
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    dirs = {
+        "cloudy": os.path.join(base_dir, "data", "cloudy"),
+        "clear": os.path.join(base_dir, "data", "clear"),
+        "historical": os.path.join(base_dir, "data", "historical"),
+        "sar": os.path.join(base_dir, "data", "sar"),
+        "samples": os.path.join(base_dir, "data", "samples"),
+    }
+    for d in dirs.values():
+        os.makedirs(d, exist_ok=True)
+
+    from src.preprocessing.data_loader import GeoTIFFLoader
+    loader = GeoTIFFLoader()
+    manifest, csv_rows, skipped = [], [], []
+    for (sid, region, terrain, sensor, res, bounds, date) in REGIONS_SPEC:
+        cloudy_path = os.path.join(dirs["cloudy"], f"{sid}_cloudy.tif")
+        clear_path = os.path.join(dirs["clear"], f"{sid}_clear.tif")
+        hist_path = os.path.join(dirs["historical"], f"{sid}_historical.tif")
+        sar_path = os.path.join(dirs["sar"], f"{sid}_sar.tif")
+        if not all(os.path.exists(p) for p in (cloudy_path, clear_path, hist_path, sar_path)):
+            skipped.append(sid)
+            continue
+        try:
+            cloudy_arr, _ = loader.load_raster(cloudy_path)
+            bright = cloudy_arr[..., :3].mean(axis=-1)
+            cloud_pct = round(float(((bright > 0.75)).mean()) * 100.0, 2)
+        except Exception:
+            cloud_pct = 0.0
+        manifest.append({
+            "image_id": sid,
+            "region": region,
+            "terrain_type": terrain,
+            "date": date,
+            "optical_sensor": sensor,
+            "sar_sensor": "Sentinel-1 C-SAR",
+            "crs": "EPSG:4326",
+            "resolution": res,
+            "cloud_cover_pct": cloud_pct,
+            "bounds": list(bounds),
+            "files": {"cloudy": cloudy_path, "clear": clear_path,
+                      "historical": hist_path, "sar": sar_path},
+        })
+        csv_rows.append({
+            "image_id": sid, "region": region, "terrain_type": terrain,
+            "optical_sensor": sensor, "sar_sensor": "Sentinel-1 C-SAR",
+            "date": date, "crs": "EPSG:4326", "resolution_m": res,
+            "cloud_cover_pct": cloud_pct,
+            "bounds_lon_min": bounds[0], "bounds_lat_min": bounds[1],
+            "bounds_lon_max": bounds[2], "bounds_lat_max": bounds[3],
+            "cloudy_geotiff": cloudy_path, "clear_geotiff": clear_path,
+            "historical_geotiff": hist_path, "sar_geotiff": sar_path,
+        })
+    manifest_path = os.path.join(dirs["samples"], "dataset_manifest.json")
+    with open(manifest_path, "w") as f:
+        json.dump(manifest, f, indent=2)
+    if csv_rows:
+        csv_path = os.path.join(base_dir, "data", "metadata.csv")
+        with open(csv_path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=list(csv_rows[0].keys()))
+            writer.writeheader()
+            writer.writerows(csv_rows)
+    print(f"Manifest rebuilt: {len(manifest)} scenes. Skipped (missing files): {skipped}")
+    return {"scenes": len(manifest), "skipped": skipped, "manifest": manifest_path}
+
+
 def generate_custom_aoi_scene(
     bounds: Tuple[float, float, float, float],
     region_name: str = "Custom Selected AOI",
@@ -425,4 +501,8 @@ def generate_custom_aoi_scene(
 
 
 if __name__ == "__main__":
-    generate_full_dataset_catalog()
+    import sys
+    if "--rebuild" in sys.argv:
+        rebuild_manifest_from_disk()
+    else:
+        generate_full_dataset_catalog()
