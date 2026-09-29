@@ -1,0 +1,21 @@
+{
+  "image_id": "scene_maharashtra_pune",
+  "region": "Maharashtra, Pune Mula-Mutha Basin",
+  "date": "2024-04-18",
+  "optical_sensor": "LISS-IV",
+  "sar_sensor": "Sentinel-1",
+  "crs": "EPSG:4326",
+  "resolution": 5.8,
+  "bounds": [
+    73.8,
+    18.45,
+    73.95,
+    18.6
+  ],
+  "files": {
+    "cloudy": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\cloudy\\scene_maharashtra_pune_cloudy.tif",
+    "clear": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\clear\\scene_maharashtra_pune_clear.tif",
+    "historical": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\historical\\scene_maharashtra_pune_historical.tif",
+    "sar": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\sar\\scene_maharashtra_pune_sar.tif"
+  }
+}

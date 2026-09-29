@@ -1,0 +1,21 @@
+{
+  "image_id": "scene_kerala_alappuzha",
+  "region": "Kerala, Alappuzha Coastal Region",
+  "date": "2024-06-02",
+  "optical_sensor": "Sentinel-2",
+  "sar_sensor": "Sentinel-1",
+  "crs": "EPSG:4326",
+  "resolution": 10.0,
+  "bounds": [
+    76.3,
+    9.45,
+    76.45,
+    9.6
+  ],
+  "files": {
+    "cloudy": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\cloudy\\scene_kerala_alappuzha_cloudy.tif",
+    "clear": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\clear\\scene_kerala_alappuzha_clear.tif",
+    "historical": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\historical\\scene_kerala_alappuzha_historical.tif",
+    "sar": "D:\\VIT,Pune\\SEM 5\\Machine Learning\\AI-Based Cloud Removal and Spectral Reconstruction of Satellite Imagery\\data\\sar\\scene_kerala_alappuzha_sar.tif"
+  }
+}

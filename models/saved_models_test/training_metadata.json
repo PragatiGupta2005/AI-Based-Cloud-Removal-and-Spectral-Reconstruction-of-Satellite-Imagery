@@ -1,0 +1,32 @@
+{
+  "trained_at": "2026-09-29 13:12:40",
+  "epochs": 1,
+  "samples_count": 6,
+  "final_val_loss": 1.2469828128814697,
+  "final_psnr": 10.610662460327148,
+  "final_ssim": 0.007964881137013435,
+  "weights_path": "C:\\Users\\USER\\OneDrive\\Desktop\\5 SEM\\ML\\CP\\AI-Based-Cloud-Removal-and-Spectral-Reconstruction-of-Satellite-Imagery-main\\models\\saved_models_test\\mrr_reconstructor.weights.h5",
+  "history": {
+    "epoch": [
+      1
+    ],
+    "loss": [
+      1.252840518951416
+    ],
+    "val_loss": [
+      1.2469828128814697
+    ],
+    "c3_loss": [
+      1.2506062984466553
+    ],
+    "val_c3_loss": [
+      1.2386876344680786
+    ],
+    "val_psnr": [
+      10.610662460327148
+    ],
+    "val_ssim": [
+      0.007964881137013435
+    ]
+  }
+}
